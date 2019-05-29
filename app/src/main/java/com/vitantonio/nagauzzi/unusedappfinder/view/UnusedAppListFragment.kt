@@ -30,6 +30,6 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
+        viewModel.getAppUsages()
     }
 }

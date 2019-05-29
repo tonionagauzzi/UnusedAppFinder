@@ -4,4 +4,7 @@ import android.app.Application
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 
-class UnusedAppFinder(override val kodein: Kodein = getKodeinInstance()) : Application(), KodeinAware
+@Suppress("unused")
+class UnusedAppFinder : Application(), KodeinAware {
+    override val kodein: Kodein = getKodeinInstance()
+}
