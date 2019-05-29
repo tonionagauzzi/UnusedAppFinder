@@ -8,10 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.direct
+import org.kodein.di.generic.instance
 
-class UnusedAppListFragment : Fragment() {
+class UnusedAppListFragment : Fragment(), KodeinAware {
 
-    private lateinit var viewModel: UnusedAppListViewModel
+    override val kodein by closestKodein()
+
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, direct.instance()).get(UnusedAppListViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,8 +30,6 @@ class UnusedAppListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(UnusedAppListViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }
