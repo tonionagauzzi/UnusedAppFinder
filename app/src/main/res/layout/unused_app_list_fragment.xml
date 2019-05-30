@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".view.UnusedAppListFragment">
 
-    <TextView
+    <GridView
+            android:id="@+id/grid_view_unused_app_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello"/>
+            android:background="#000"
+            android:gravity="center"
+            android:horizontalSpacing="0dp"
+            android:verticalSpacing="0dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            tools:itemsize="3"
+            tools:listitem="@layout/unused_app_item"/>
 
-</FrameLayout>
+</LinearLayout>

@@ -4,9 +4,9 @@ import android.content.Context
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import android.app.usage.UsageStatsManager
 import java.util.*
-import android.content.pm.PackageManager
-import com.vitantonio.nagauzzi.unusedappfinder.extension.changeYear
 import android.content.pm.ApplicationInfo
+import android.content.Intent
+import com.vitantonio.nagauzzi.unusedappfinder.extension.*
 
 interface AppUsageRepository {
     fun get(): List<AppUsage>
@@ -21,8 +21,10 @@ class AppUsageRepositoryImpl(
         // Get usage stats list
         val usageStatsManager =
             context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-        val to = Date()
-        val from = to.changeYear(-1)
+        val calendar = Calendar.getInstance()
+        val today = Date()
+        val to = today.changeDay(1).resetDateToZeroOClock(calendar).changeMillisecond(-1)
+        val from = Date().changeMonth(-5, calendar).resetDateToStartDayOfMonth(calendar).resetDateToZeroOClock(calendar)
         val queryUsageStats = usageStatsManager.queryUsageStats(
             UsageStatsManager.INTERVAL_MONTHLY,
             from.time,
@@ -32,19 +34,28 @@ class AppUsageRepositoryImpl(
             // Something is wrong
             throw SecurityException("UsageStatsManager.queryUsageStats() returned empty list.")
         }
+        // TODO It seems not to be able to get usage stats before recent shutdown...
+        //val oldestStats = queryUsageStats.filter { it.lastTimeUsed > 1000000000000 }.minBy { it.lastTimeUsed }
 
         // Get installed app list
         val packageManager = context.packageManager
-        return packageManager.getInstalledApplications(PackageManager.GET_META_DATA).map { appInfo ->
-            // Generate AppUsage list (by usage stats list and installed app list)
+        val mainIntent = Intent(Intent.ACTION_MAIN, null)
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+        val resolveInfoList = packageManager.queryIntentActivities(mainIntent, 0)
+
+        // Generate AppUsage list (by usage stats list and installed app list)
+        return resolveInfoList.map { resolveInfo ->
             AppUsage(
-                name = packageManager.getApplicationLabel(appInfo).toString(),
+                name = resolveInfo.loadLabel(packageManager).toString(),
+                packageName = resolveInfo.activityInfo.packageName,
+                activityName = resolveInfo.activityInfo.name,
+                icon = resolveInfo.loadIcon(packageManager),
                 lastUsedTime = queryUsageStats.filter {
-                    it.packageName == appInfo.packageName
+                    it.packageName == resolveInfo.activityInfo.packageName
                 }.maxBy {
                     it.lastTimeUsed
                 }?.lastTimeUsed ?: 0,
-                enableUninstall = appInfo.isUserApp()
+                enableUninstall = resolveInfo.activityInfo.applicationInfo.isUserApp()
             )
         }
     }
