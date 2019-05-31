@@ -50,8 +50,10 @@ class AppUsageRepositoryImpl(
                 packageName = resolveInfo.activityInfo.packageName,
                 activityName = resolveInfo.activityInfo.name,
                 icon = resolveInfo.loadIcon(packageManager),
+                installedTime = packageManager.getPackageInfo(resolveInfo.activityInfo.packageName, 0).firstInstallTime,
                 lastUsedTime = queryUsageStats.filter {
                     it.packageName == resolveInfo.activityInfo.packageName
+                            && it.lastTimeUsed >= 946652400000 // 2000/01/01 00:00:00以降なら正しいデータとみなす
                 }.maxBy {
                     it.lastTimeUsed
                 }?.lastTimeUsed ?: 0,

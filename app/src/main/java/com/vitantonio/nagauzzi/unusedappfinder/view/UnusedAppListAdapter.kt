@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.extension.toDate
+import com.vitantonio.nagauzzi.unusedappfinder.extension.toInstalledDateString
 import com.vitantonio.nagauzzi.unusedappfinder.extension.toLastUsedDateString
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 
@@ -21,7 +22,8 @@ class GridAdapter(
     internal inner class ViewHolder(
         val imageView: ImageView,
         val textViewAppName: TextView,
-        val textViewAppLastUsedTime: TextView
+        val textViewAppLastUsedTime: TextView,
+        val textViewAppInstalledTime: TextView
     )
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -33,7 +35,8 @@ class GridAdapter(
             holder = ViewHolder(
                 imageView = view.findViewById(R.id.image_view),
                 textViewAppName = view.findViewById(R.id.text_view_app_name),
-                textViewAppLastUsedTime = view.findViewById(R.id.text_view_app_last_used_time)
+                textViewAppLastUsedTime = view.findViewById(R.id.text_view_app_last_used_time),
+                textViewAppInstalledTime = view.findViewById(R.id.text_view_app_installed_time)
             )
             view.tag = holder
         } else {
@@ -44,6 +47,8 @@ class GridAdapter(
         holder.textViewAppName.text = appItemList[position].name
         holder.textViewAppLastUsedTime.text =
             appItemList[position].lastUsedTime.toDate().toLastUsedDateString(context)
+        holder.textViewAppInstalledTime.text =
+            appItemList[position].installedTime.toDate().toInstalledDateString(context)
 
         return view!!
     }

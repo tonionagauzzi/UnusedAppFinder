@@ -49,4 +49,18 @@
             android:shadowRadius="2"
             android:shadowColor="#444"/>
 
+    <TextView
+            android:id="@+id/text_view_app_installed_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="#fff"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:shadowColor="#444"/>
+
 </LinearLayout>

@@ -38,9 +38,25 @@ fun Long.toDate() = Date(this)
 
 fun Date.getString(format: String = "yyyy/MM/dd") = SimpleDateFormat(format, Locale.JAPAN).format(this)!!
 
-fun Date.toLastUsedDateString(context: Context, format: String = "yyyy/MM/dd") =
+fun Date.toLastUsedDateString(context: Context, format: String = "yy/MM/dd") = if (time > 0) {
     "${R.string.label_last_used_date.getString(context)} " +
-            "${R.string.label_separator.getString(context)} \n" + getString(format)
+            "${R.string.label_separator.getString(context)} \n" +
+            "'${getString(format)}"
+} else {
+    "${R.string.label_last_used_date.getString(context)} " +
+            "${R.string.label_separator.getString(context)} \n" +
+            R.string.label_unknown.getString(context)
+}
+
+fun Date.toInstalledDateString(context: Context, format: String = "yy/MM/dd") = if (time > 0) {
+    "${R.string.label_installed_date.getString(context)} " +
+            "${R.string.label_separator.getString(context)} \n" +
+            "'${getString(format)}"
+} else {
+    "${R.string.label_installed_date.getString(context)} " +
+            "${R.string.label_separator.getString(context)} \n" +
+            R.string.label_unknown.getString(context)
+}
 
 fun Date.resetDateToZeroOClock(calendar: Calendar = Calendar.getInstance()): Date {
     calendar.time = this.clone() as Date

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">UnusedAppFinder</string>
     <string name="description_image">image</string>
-    <string name="label_last_used_date">Last Used Date</string>
+    <string name="label_last_used_date">Last Used</string>
+    <string name="label_installed_date">Installed</string>
     <string name="label_separator">:</string>
+    <string name="label_unknown">unknown</string>
 </resources>

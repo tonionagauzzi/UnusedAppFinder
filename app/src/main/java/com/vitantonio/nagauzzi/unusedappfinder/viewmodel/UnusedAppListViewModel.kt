@@ -23,7 +23,7 @@ class UnusedAppListViewModel(
         appUsageList.value = list.filter {
             it.enableUninstall
         }.sortedByDescending {
-            it.lastUsedTime
+            if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
         }
     }
 
