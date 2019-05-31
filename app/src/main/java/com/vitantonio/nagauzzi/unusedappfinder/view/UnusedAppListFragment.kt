@@ -14,7 +14,12 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.direct
 import org.kodein.di.generic.instance
 import GridAdapter
+import android.widget.AdapterView
 import android.widget.GridView
+import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 
 class UnusedAppListFragment : Fragment(), KodeinAware {
 
@@ -35,11 +40,20 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
         viewModel.appUsageList.observe(this, Observer { appUsageList ->
             if (appUsageList != null) {
-                activity!!.findViewById<GridView>(R.id.grid_view_unused_app_list).adapter = GridAdapter(
+                val gridView = activity!!.findViewById<GridView>(R.id.grid_view_unused_app_list)
+                gridView.adapter = GridAdapter(
                     context!!,
                     R.layout.unused_app_item,
                     appUsageList
                 )
+                gridView.onItemClickListener =
+                    AdapterView.OnItemClickListener { parent, view, position, id ->
+                        val selectedItem = parent.getItemAtPosition(position) as AppUsage
+                        val intent = Intent()
+                        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                        intent.data = Uri.parse("package:${selectedItem.packageName}")
+                        startActivity(intent)
+                    }
             }
         })
 
