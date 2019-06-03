@@ -1,6 +1,5 @@
 package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
@@ -12,12 +11,16 @@ class UnusedAppListViewModel(
 ) : ViewModel(), AppUsageListPresenter {
 
     val appUsageList = MutableLiveData<List<AppUsage>>()
+    val requestingPermission = MutableLiveData<Boolean>()
 
     init {
         useCase.presenter = this
     }
 
-    fun getAppUsages() = useCase.execute()
+    fun getAppUsages() {
+        requestingPermission.value = false
+        useCase.execute()
+    }
 
     override fun showAppUsageList(list: List<AppUsage>) {
         appUsageList.value = list.filter {
@@ -28,7 +31,6 @@ class UnusedAppListViewModel(
     }
 
     override fun requirePermissionForAppUsage() {
-        // TODO not implemented
-        Log.d("UnusedAppFinder", "Required permission")
+        requestingPermission.value = true
     }
 }

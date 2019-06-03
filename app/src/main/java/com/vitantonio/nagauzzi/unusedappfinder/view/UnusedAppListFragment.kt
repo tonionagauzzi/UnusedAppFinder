@@ -20,6 +20,8 @@ import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import com.vitantonio.nagauzzi.unusedappfinder.databinding.UnusedAppListFragmentBinding
+import kotlinx.android.synthetic.main.unused_app_list_fragment.*
 
 class UnusedAppListFragment : Fragment(), KodeinAware {
 
@@ -29,15 +31,21 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
         ViewModelProviders.of(this, direct.instance()).get(UnusedAppListViewModel::class.java)
     }
 
+    private lateinit var binding: UnusedAppListFragmentBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.unused_app_list_fragment, container, false)
+        binding = UnusedAppListFragmentBinding.inflate(inflater, container, false).also {
+            it.lifecycleOwner = this
+        }
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.viewModel = viewModel
         viewModel.appUsageList.observe(this, Observer { appUsageList ->
             if (appUsageList != null) {
                 val gridView = activity!!.findViewById<GridView>(R.id.grid_view_unused_app_list)
@@ -47,7 +55,7 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
                     appUsageList
                 )
                 gridView.onItemClickListener =
-                    AdapterView.OnItemClickListener { parent, view, position, id ->
+                    AdapterView.OnItemClickListener { parent, _, position, _ ->
                         val selectedItem = parent.getItemAtPosition(position) as AppUsage
                         val intent = Intent()
                         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
@@ -56,7 +64,17 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
                     }
             }
         })
+        image_view_how_to_permit_app_usage.setOnClickListener {
+            launchSetting()
+        }
+    }
 
+    override fun onResume() {
+        super.onResume()
         viewModel.getAppUsages()
+    }
+
+    private fun launchSetting() {
+        startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
     }
 }
