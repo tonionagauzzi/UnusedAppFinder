@@ -48,7 +48,7 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
         binding.viewModel = viewModel
         viewModel.appUsageList.observe(this, Observer { appUsageList ->
             if (appUsageList != null) {
-                val gridView = activity!!.findViewById<GridView>(R.id.grid_view_unused_app_list)
+                val gridView = activity!!.findViewById<GridView>(R.id.gridViewUnusedAppList)
                 gridView.adapter = GridAdapter(
                     context!!,
                     R.layout.unused_app_item,
@@ -64,8 +64,12 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
                     }
             }
         })
-        image_view_how_to_permit_app_usage.setOnClickListener {
+        imageViewHowToPermitAppUsage.setOnClickListener {
             launchSetting()
+        }
+        swipeRefreshLayoutUnusedAppList.setOnRefreshListener {
+            viewModel.getAppUsages()
+            swipeRefreshLayoutUnusedAppList.isRefreshing = false
         }
     }
 
