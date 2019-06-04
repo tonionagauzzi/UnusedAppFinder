@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">UnusedAppFinder</string>
     <string name="description_image">image</string>
+    <string name="format_date">dd MMM yyyy</string>
     <string name="label_last_used_date">Last Used</string>
     <string name="label_installed_date">Installed</string>
     <string name="label_separator">:</string>
