@@ -42,3 +42,36 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+licenseTools {
+    ignoredGroups = [
+            'androidx.annotation',
+            'androidx.appcompat',
+            'androidx.arch.core',
+            'androidx.asynclayoutinflater',
+            'androidx.collection',
+            'androidx.constraintlayout',
+            'androidx.coordinatorlayout',
+            'androidx.cursoradapter',
+            'androidx.customview',
+            'androidx.databinding',
+            'androidx.documentfile',
+            'androidx.drawerlayout',
+            'androidx.fragment',
+            'androidx.interpolator',
+            'androidx.legacy',
+            'androidx.loader',
+            'androidx.lifecycle',
+            'androidx.localbroadcastmanager',
+            'androidx.media',
+            'androidx.navigation',
+            'androidx.print',
+            'androidx.recyclerview',
+            'androidx.slidingpanelayout',
+            'androidx.swiperefreshlayout',
+            'androidx.vectordrawable',
+            'androidx.versionedparcelable',
+            'androidx.viewpager',
+            'org.jetbrains'
+    ]
+}
