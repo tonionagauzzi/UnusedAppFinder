@@ -8,6 +8,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.repository.AppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.AppUsageRepositoryImpl
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
+import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.WebViewViewModel
 import org.kodein.di.DKodein
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
@@ -21,11 +22,12 @@ fun Application.getKodeinInstance() = Kodein.lazy {
     bind<AppUsageRepository>() with provider { AppUsageRepositoryImpl(instance(tag = "context")) }
     bind<GetAppUsages>() with provider { GetAppUsages(instance()) }
     bindVM<UnusedAppListViewModel>() with provider { UnusedAppListViewModel(instance()) }
+    bindVM<WebViewViewModel>() with provider { WebViewViewModel() }
 }
 
 class KodeinViewModelFactory(
     private val injector: DKodein
-): ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

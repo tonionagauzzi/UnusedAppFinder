@@ -8,7 +8,17 @@
     <fragment
             android:id="@+id/unusedAppListDest"
             android:name="com.vitantonio.nagauzzi.unusedappfinder.view.UnusedAppListFragment"
-            android:label="DebugEntryFragment"
-            tools:layout="@layout/unused_app_list_fragment"/>
+            android:label="UnusedAppListFragment"
+            tools:layout="@layout/unused_app_list_fragment">
+        <action
+                android:id="@+id/actionUnusedAppListDestToWebViewDest"
+                app:destination="@id/webViewDest"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/webViewDest"
+            android:name="com.vitantonio.nagauzzi.unusedappfinder.view.WebViewFragment"
+            android:label="WebViewFragment"
+            tools:layout="@layout/web_view_fragment"/>
 
 </navigation>

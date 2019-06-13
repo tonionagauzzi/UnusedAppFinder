@@ -3,9 +3,6 @@ package com.vitantonio.nagauzzi.unusedappfinder.view
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
@@ -22,6 +19,9 @@ import android.net.Uri
 import android.provider.Settings
 import com.vitantonio.nagauzzi.unusedappfinder.databinding.UnusedAppListFragmentBinding
 import kotlinx.android.synthetic.main.unused_app_list_fragment.*
+import android.view.*
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 
 class UnusedAppListFragment : Fragment(), KodeinAware {
 
@@ -37,6 +37,7 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         binding = UnusedAppListFragmentBinding.inflate(inflater, container, false).also {
             it.lifecycleOwner = this
         }
@@ -76,6 +77,26 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
     override fun onResume() {
         super.onResume()
         viewModel.getAppUsages()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_about_this_app, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        when (item.itemId) {
+            R.id.menuAbout -> {
+                Toast.makeText(context, "Not implemented.", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.menuOSSLicense -> {
+                findNavController().navigate(R.id.actionUnusedAppListDestToWebViewDest)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     private fun launchSetting() {

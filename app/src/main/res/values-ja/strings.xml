@@ -5,5 +5,7 @@
     <string name="label_last_used_date">最終起動日</string>
     <string name="label_installed_date">インストール日</string>
     <string name="label_separator">:</string>
-    <string name="label_unknown">unknown</string>
+    <string name="label_unknown">取得不可</string>
+    <string name="label_about">このアプリについて</string>
+    <string name="label_oss_license">オープンソースライセンス</string>
 </resources>

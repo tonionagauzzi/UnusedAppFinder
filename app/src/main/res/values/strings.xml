@@ -6,4 +6,6 @@
     <string name="label_installed_date">Installed</string>
     <string name="label_separator">:</string>
     <string name="label_unknown">unknown</string>
+    <string name="label_about">About This App</string>
+    <string name="label_oss_license">Open Source Licenses</string>
 </resources>
