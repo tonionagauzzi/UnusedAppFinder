@@ -18,10 +18,11 @@ import org.kodein.di.generic.singleton
 
 fun Application.getKodeinInstance() = Kodein.lazy {
     bind<Context>(tag = "context") with singleton { this@getKodeinInstance }
+    bind<String>(tag = "packageName") with singleton { this@getKodeinInstance.packageName }
     bind<ViewModelProvider.Factory>() with singleton { KodeinViewModelFactory(dkodein) }
     bind<AppUsageRepository>() with provider { AppUsageRepositoryImpl(instance(tag = "context")) }
     bind<GetAppUsages>() with provider { GetAppUsages(instance()) }
-    bindVM<UnusedAppListViewModel>() with provider { UnusedAppListViewModel(instance()) }
+    bindVM<UnusedAppListViewModel>() with provider { UnusedAppListViewModel(instance(tag = "packageName"), instance()) }
     bindVM<WebViewViewModel>() with provider { WebViewViewModel() }
 }
 

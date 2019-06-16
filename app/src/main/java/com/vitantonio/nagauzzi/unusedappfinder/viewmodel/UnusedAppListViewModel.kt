@@ -7,6 +7,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.presenter.AppUsageListPresenter
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 
 class UnusedAppListViewModel(
+    private val packageName: String,
     private val useCase: GetAppUsages
 ) : ViewModel(), AppUsageListPresenter {
 
@@ -24,7 +25,7 @@ class UnusedAppListViewModel(
 
     override fun showAppUsageList(list: List<AppUsage>) {
         appUsageList.value = list.filter {
-            it.enableUninstall
+            it.enableUninstall && it.packageName != packageName
         }.sortedByDescending {
             if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
         }
