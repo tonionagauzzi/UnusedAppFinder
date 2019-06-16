@@ -76,8 +76,10 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
 
     override fun onResume() {
         super.onResume()
-        activity?.title = R.string.app_name.getString(context!!)
-        activity?.getSupportActionBar()?.setDisplayHomeAsUpEnabled(false)
+        activity?.getSupportActionBar()?.apply {
+            title = R.string.app_name.getString(context!!)
+            setDisplayHomeAsUpEnabled(false)
+        }
         viewModel.getAppUsages()
     }
 

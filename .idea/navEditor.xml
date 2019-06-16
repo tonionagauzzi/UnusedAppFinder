@@ -38,15 +38,6 @@
                             <option name="y" value="13" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="actionWebViewDestToUnusedAppListDest">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>

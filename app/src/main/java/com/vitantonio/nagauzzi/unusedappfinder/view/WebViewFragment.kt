@@ -47,8 +47,10 @@ class WebViewFragment : Fragment(), KodeinAware {
 
     override fun onResume() {
         super.onResume()
-        activity?.title = R.string.label_oss_license.getString(context!!)
-        activity?.getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        activity?.getSupportActionBar()?.apply {
+            title = R.string.label_oss_license.getString(context!!)
+            activity?.getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        }
         activity?.getToolBar()?.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
