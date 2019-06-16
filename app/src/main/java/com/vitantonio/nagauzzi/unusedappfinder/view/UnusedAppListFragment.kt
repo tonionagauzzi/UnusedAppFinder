@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.unused_app_list_fragment.*
 import android.view.*
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
 
 class UnusedAppListFragment : Fragment(), KodeinAware {
 
@@ -76,6 +77,8 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
 
     override fun onResume() {
         super.onResume()
+        activity?.title = R.string.app_name.getString(context!!)
+        activity?.getSupportActionBar()?.setDisplayHomeAsUpEnabled(false)
         viewModel.getAppUsages()
     }
 
