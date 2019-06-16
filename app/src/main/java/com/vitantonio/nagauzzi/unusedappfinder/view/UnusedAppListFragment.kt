@@ -20,7 +20,6 @@ import android.provider.Settings
 import com.vitantonio.nagauzzi.unusedappfinder.databinding.UnusedAppListFragmentBinding
 import kotlinx.android.synthetic.main.unused_app_list_fragment.*
 import android.view.*
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
 
@@ -91,7 +90,13 @@ class UnusedAppListFragment : Fragment(), KodeinAware {
         // Handle item selection
         when (item.itemId) {
             R.id.menuAbout -> {
-                Toast.makeText(context, "Not implemented.", Toast.LENGTH_SHORT).show()
+                context?.run {
+                    startActivity(Intent().apply {
+                        action = Intent.ACTION_VIEW
+                        data = Uri.parse("market://details?id=${this@run.packageName}")
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    })
+                }
                 return true
             }
             R.id.menuOSSLicense -> {
