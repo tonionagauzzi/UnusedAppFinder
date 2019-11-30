@@ -11,14 +11,14 @@ import com.vitantonio.nagauzzi.unusedappfinder.databinding.WebViewFragmentBindin
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.WebViewViewModel
 import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
+import org.kodein.di.android.x.kodein
 import org.kodein.di.direct
 import org.kodein.di.generic.instance
 import androidx.navigation.fragment.findNavController
 
 class WebViewFragment : Fragment(), KodeinAware {
 
-    override val kodein by closestKodein()
+    override val kodein by kodein()
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, direct.instance()).get(WebViewViewModel::class.java)
