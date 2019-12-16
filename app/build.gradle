@@ -44,6 +44,7 @@ dependencies {
 
 licenseTools {
     ignoredGroups = [
+            'androidx.activity',
             'androidx.annotation',
             'androidx.appcompat',
             'androidx.arch.core',
@@ -66,11 +67,13 @@ licenseTools {
             'androidx.navigation',
             'androidx.print',
             'androidx.recyclerview',
+            'androidx.savedstate',
             'androidx.slidingpanelayout',
             'androidx.swiperefreshlayout',
             'androidx.vectordrawable',
             'androidx.versionedparcelable',
             'androidx.viewpager',
-            'org.jetbrains'
+            'org.jetbrains',
+            'org.jetbrains.kotlinx'
     ]
 }

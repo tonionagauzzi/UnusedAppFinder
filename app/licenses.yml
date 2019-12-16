@@ -21,44 +21,26 @@
 #I#
 #J#
 #K#
-- artifact: org.kodein.di:kodein-di-core-jvm:+
-  name: Kodein
-  copyrightHolder: Kodein Framework
-  license: MIT
-  licenseUrl: https://opensource.org/licenses/MIT
-  skip: true
-- artifact: org.kodein.di:kodein-di-framework-android-core:+
-  name: Kodein
-  copyrightHolder: Kodein Framework
-  license: MIT
-  licenseUrl: https://opensource.org/licenses/MIT
-  url: https://kodein.org/di/
-- artifact: org.kodein.di:kodein-di-framework-android-x:+
-  name: Kodein
-  copyrightHolder: Kodein Framework
-  license: MIT
-  licenseUrl: https://opensource.org/licenses/MIT
-  skip: true
-- artifact: org.kodein.di:kodein-di-generic-jvm:+
-  name: Kodein
-  copyrightHolder: Kodein Framework
-  license: MIT
-  licenseUrl: https://opensource.org/licenses/MIT
-  skip: true
+- artifact: org.jetbrains.kotlin:kotlin-android-extensions-runtime:+
+  name: Kotlin Android
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://kotlinlang.org/
 - artifact: org.jetbrains.kotlin:kotlin-stdlib:+
-  name: Kotlin
+  name: Kotlin stdLib
   copyrightHolder: JetBrains s.r.o.
   license: The Apache License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://kotlinlang.org/
 - artifact: org.jetbrains.kotlin:kotlin-stdlib-common:+
-  name: Kotlin
+  name: Kotlin stdLib common
   copyrightHolder: JetBrains s.r.o.
   license: The Apache License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   skip: true
 - artifact: org.jetbrains.kotlin:kotlin-stdlib-jdk7:+
-  name: Kotlin
+  name: Kotlin stdLib JDK7
   copyrightHolder: JetBrains s.r.o.
   license: The Apache License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
@@ -67,6 +49,30 @@
 #M#
 #N#
 #O#
+- artifact: org.koin:koin-core:+
+  name: koin-core
+  copyrightHolder: insert-Koin.io
+  license: The Apache License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://insert-koin.io/
+- artifact: org.koin:koin-android:+
+  name: koin-android
+  copyrightHolder: insert-Koin.io
+  license: The Apache License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://insert-koin.io/
+- artifact: org.koin:koin-androidx-scope:+
+  name: koin-androidx-scope
+  copyrightHolder: insert-Koin.io
+  license: The Apache License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://insert-koin.io/
+- artifact: org.koin:koin-androidx-viewmodel:+
+  name: koin-androidx-viewmodel
+  copyrightHolder: insert-Koin.io
+  license: The Apache License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://insert-koin.io/
 #P#
 #Q#
 #R#
