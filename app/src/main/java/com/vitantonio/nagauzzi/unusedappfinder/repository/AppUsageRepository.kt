@@ -34,7 +34,7 @@ class AppUsageRepositoryImpl(
             // Something is wrong
             throw SecurityException("UsageStatsManager.queryUsageStats() returned empty list.")
         }
-        // TODO It seems not to be able to get usage stats before recent shutdown...
+        // FIXME It seems not to be able to get usage stats before recent shutdown...
         //val oldestStats = queryUsageStats.filter { it.lastTimeUsed > 1000000000000 }.minBy { it.lastTimeUsed }
 
         // Get installed app list
