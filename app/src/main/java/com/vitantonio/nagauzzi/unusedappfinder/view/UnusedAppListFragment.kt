@@ -1,15 +1,10 @@
 package com.vitantonio.nagauzzi.unusedappfinder.view
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.kodein
-import org.kodein.di.direct
-import org.kodein.di.generic.instance
 import GridAdapter
 import android.widget.AdapterView
 import android.widget.GridView
@@ -22,14 +17,11 @@ import kotlinx.android.synthetic.main.unused_app_list_fragment.*
 import android.view.*
 import androidx.navigation.fragment.findNavController
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UnusedAppListFragment : Fragment(), KodeinAware {
+class UnusedAppListFragment : Fragment() {
 
-    override val kodein by kodein()
-
-    private val viewModel by lazy {
-        ViewModelProviders.of(this, direct.instance()).get(UnusedAppListViewModel::class.java)
-    }
+    private val viewModel: UnusedAppListViewModel by viewModel()
 
     private lateinit var binding: UnusedAppListFragmentBinding
 

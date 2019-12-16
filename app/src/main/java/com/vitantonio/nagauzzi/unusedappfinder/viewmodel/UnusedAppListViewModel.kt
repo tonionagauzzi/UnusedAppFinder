@@ -1,5 +1,6 @@
 package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
@@ -7,7 +8,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.presenter.AppUsageListPresenter
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 
 class UnusedAppListViewModel(
-    private val packageName: String,
+    private val context: Context,
     private val useCase: GetAppUsages
 ) : ViewModel(), AppUsageListPresenter {
 
@@ -25,7 +26,7 @@ class UnusedAppListViewModel(
 
     override fun showAppUsageList(list: List<AppUsage>) {
         appUsageList.value = list.filter {
-            it.enableUninstall && it.packageName != packageName
+            it.enableUninstall && it.packageName != context.packageName
         }.sortedByDescending {
             if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
         }

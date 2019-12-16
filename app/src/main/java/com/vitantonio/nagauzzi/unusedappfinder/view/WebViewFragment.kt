@@ -5,24 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.databinding.WebViewFragmentBinding
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.WebViewViewModel
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.kodein
-import org.kodein.di.direct
-import org.kodein.di.generic.instance
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class WebViewFragment : Fragment(), KodeinAware {
+class WebViewFragment : Fragment() {
 
-    override val kodein by kodein()
-
-    private val viewModel by lazy {
-        ViewModelProviders.of(this, direct.instance()).get(WebViewViewModel::class.java)
-    }
+    private val viewModel: WebViewViewModel by viewModel()
 
     private lateinit var binding: WebViewFragmentBinding
 
