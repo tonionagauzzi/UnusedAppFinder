@@ -21,15 +21,15 @@ class WebViewFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = WebViewFragmentBinding.inflate(inflater, container, false).also {
             it.lifecycleOwner = this
         }
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
         // ライセンスHTMLのURLを指定
@@ -40,7 +40,7 @@ class WebViewFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         activity?.getSupportActionBar()?.apply {
-            title = R.string.label_oss_license.getString(context!!)
+            title = R.string.label_oss_license.getString(requireContext())
             activity?.getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         }
         activity?.getToolBar()?.setNavigationOnClickListener {

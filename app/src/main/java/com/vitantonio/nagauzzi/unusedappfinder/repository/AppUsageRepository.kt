@@ -54,7 +54,7 @@ class AppUsageRepositoryImpl(
                 lastUsedTime = queryUsageStats.filter {
                     it.packageName == resolveInfo.activityInfo.packageName
                             && it.lastTimeUsed >= 946652400000 // 2000/01/01 00:00:00以降なら正しいデータとみなす
-                }.maxBy {
+                }.maxByOrNull {
                     it.lastTimeUsed
                 }?.lastTimeUsed ?: 0,
                 enableUninstall = resolveInfo.activityInfo.applicationInfo.isUserApp()

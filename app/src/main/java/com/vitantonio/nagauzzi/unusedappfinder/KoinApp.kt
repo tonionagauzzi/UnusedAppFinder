@@ -14,13 +14,13 @@ import org.koin.dsl.module
 class KoinApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoin{
+        startKoin {
             androidContext(applicationContext)
             modules(module)
         }
     }
 
-    val module = module {
+    private val module = module {
         single { AppUsageRepositoryImpl(androidContext()) as AppUsageRepository }
         single { GetAppUsages(get()) }
         viewModel { WebViewViewModel() }

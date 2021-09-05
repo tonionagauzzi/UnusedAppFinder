@@ -2,10 +2,8 @@ package com.vitantonio.nagauzzi.unusedappfinder.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
-import GridAdapter
 import android.widget.AdapterView
 import android.widget.GridView
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
@@ -13,10 +11,10 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import com.vitantonio.nagauzzi.unusedappfinder.databinding.UnusedAppListFragmentBinding
-import kotlinx.android.synthetic.main.unused_app_list_fragment.*
 import android.view.*
 import androidx.navigation.fragment.findNavController
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
+import com.vitantonio.nagauzzi.unusedappfinder.view.adapter.GridAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UnusedAppListFragment : Fragment() {
@@ -28,7 +26,7 @@ class UnusedAppListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         binding = UnusedAppListFragmentBinding.inflate(inflater, container, false).also {
             it.lifecycleOwner = this
@@ -36,14 +34,14 @@ class UnusedAppListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        viewModel.appUsageList.observe(this, Observer { appUsageList ->
+        viewModel.appUsageList.observe(viewLifecycleOwner) { appUsageList ->
             if (appUsageList != null) {
-                val gridView = activity!!.findViewById<GridView>(R.id.gridViewUnusedAppList)
+                val gridView = requireActivity().findViewById<GridView>(R.id.gridViewUnusedAppList)
                 gridView.adapter = GridAdapter(
-                    context!!,
+                    requireContext(),
                     R.layout.unused_app_item,
                     appUsageList
                 )
@@ -56,20 +54,20 @@ class UnusedAppListFragment : Fragment() {
                         startActivity(intent)
                     }
             }
-        })
-        imageViewHowToPermitAppUsage.setOnClickListener {
+        }
+        binding.imageViewHowToPermitAppUsage.setOnClickListener {
             launchSetting()
         }
-        swipeRefreshLayoutUnusedAppList.setOnRefreshListener {
+        binding.swipeRefreshLayoutUnusedAppList.setOnRefreshListener {
             viewModel.getAppUsages()
-            swipeRefreshLayoutUnusedAppList.isRefreshing = false
+            binding.swipeRefreshLayoutUnusedAppList.isRefreshing = false
         }
     }
 
     override fun onResume() {
         super.onResume()
         activity?.getSupportActionBar()?.apply {
-            title = R.string.app_name.getString(context!!)
+            title = R.string.app_name.getString(requireContext())
             setDisplayHomeAsUpEnabled(false)
         }
         viewModel.getAppUsages()

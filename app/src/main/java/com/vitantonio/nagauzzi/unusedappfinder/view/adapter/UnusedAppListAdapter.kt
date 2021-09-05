@@ -1,3 +1,5 @@
+package com.vitantonio.nagauzzi.unusedappfinder.view.adapter
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +19,8 @@ class GridAdapter(
     private val appItemList: List<AppUsage>
 ) : BaseAdapter() {
 
-    private val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater =
+        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     internal inner class ViewHolder(
         val imageView: ImageView,
@@ -57,7 +60,7 @@ class GridAdapter(
         return appItemList.size
     }
 
-    override fun getItem(position: Int): Any? {
+    override fun getItem(position: Int): Any {
         return appItemList[position]
     }
 

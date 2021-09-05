@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,9 +14,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
             android:layout_marginTop="2dp"
-            android:scaleType="centerCrop"
             android:contentDescription="@string/description_image"
-            tools:src="@mipmap/ic_launcher"/>
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher" />
 
     <TextView
             android:id="@+id/text_view_app_name"
@@ -26,13 +25,13 @@
             android:layout_gravity="center_horizontal"
             android:ellipsize="end"
             android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#fff"
+            android:shadowColor="#444"
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="2"
-            android:shadowColor="#444"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:textSize="16sp" />
 
     <TextView
             android:id="@+id/text_view_app_last_used_time"
@@ -41,12 +40,12 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="6dp"
             android:gravity="center"
-            android:textSize="12sp"
-            android:textColor="#fff"
+            android:shadowColor="#444"
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="2"
-            android:shadowColor="#444"/>
+            android:textColor="#fff"
+            android:textSize="12sp" />
 
     <TextView
             android:id="@+id/text_view_app_installed_time"
@@ -55,11 +54,11 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="2dp"
             android:gravity="center"
-            android:textSize="12sp"
-            android:textColor="#fff"
+            android:shadowColor="#444"
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="2"
-            android:shadowColor="#444"/>
+            android:textColor="#fff"
+            android:textSize="12sp" />
 
 </LinearLayout>

@@ -36,9 +36,13 @@ fun Date.changeMonth(adjustMonth: Int, calendar: Calendar = Calendar.getInstance
 
 fun Long.toDate() = Date(this)
 
-fun Date.getString(format: String = "yyyy/MM/dd") = SimpleDateFormat(format, Locale.JAPAN).format(this)!!
+fun Date.getString(format: String = "yyyy/MM/dd"): String =
+    SimpleDateFormat(format, Locale.JAPAN).format(this)
 
-fun Date.toLastUsedDateString(context: Context, format: String = R.string.format_date.getString(context)) =
+fun Date.toLastUsedDateString(
+    context: Context,
+    format: String = R.string.format_date.getString(context)
+) =
     if (time > 0) {
         "${R.string.label_last_used_date.getString(context)} " +
                 "${R.string.label_separator.getString(context)} \n" +
@@ -49,7 +53,10 @@ fun Date.toLastUsedDateString(context: Context, format: String = R.string.format
                 R.string.label_unknown.getString(context)
     }
 
-fun Date.toInstalledDateString(context: Context, format: String = R.string.format_date.getString(context)) =
+fun Date.toInstalledDateString(
+    context: Context,
+    format: String = R.string.format_date.getString(context)
+) =
     if (time > 0) {
         "${R.string.label_installed_date.getString(context)} " +
                 "${R.string.label_separator.getString(context)} \n" +
