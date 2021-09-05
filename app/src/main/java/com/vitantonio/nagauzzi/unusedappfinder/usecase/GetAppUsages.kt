@@ -1,19 +1,19 @@
 package com.vitantonio.nagauzzi.unusedappfinder.usecase
 
-import com.vitantonio.nagauzzi.unusedappfinder.presenter.AppUsageListPresenter
 import com.vitantonio.nagauzzi.unusedappfinder.repository.AppUsageRepository
+import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
+import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
+import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
 
 class GetAppUsages(
     private val repository: AppUsageRepository
 ) {
-    lateinit var presenter: AppUsageListPresenter
-
-    fun execute() {
+    suspend fun execute() {
         try {
             val appUsageList = repository.get()
-            presenter.showAppUsageList(appUsageList)
+            AppUsageState.update(Success(appUsageList))
         } catch (e: SecurityException) {
-            presenter.requirePermissionForAppUsage()
+            AppUsageState.update(Error(e))
         }
     }
 }
