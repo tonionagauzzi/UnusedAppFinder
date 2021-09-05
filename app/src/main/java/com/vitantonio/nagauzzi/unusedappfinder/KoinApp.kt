@@ -24,6 +24,6 @@ class KoinApp : Application() {
         single { AppUsageRepositoryImpl(androidContext()) as AppUsageRepository }
         single { GetAppUsages(get()) }
         viewModel { WebViewViewModel() }
-        viewModel { UnusedAppListViewModel(get(), get()) }
+        viewModel { UnusedAppListViewModel(get()) }
     }
 }

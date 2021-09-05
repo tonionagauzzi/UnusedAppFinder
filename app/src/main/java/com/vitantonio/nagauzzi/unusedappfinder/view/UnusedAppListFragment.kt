@@ -12,9 +12,14 @@ import android.net.Uri
 import android.provider.Settings
 import com.vitantonio.nagauzzi.unusedappfinder.databinding.UnusedAppListFragmentBinding
 import android.view.*
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
+import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.view.adapter.GridAdapter
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UnusedAppListFragment : Fragment() {
@@ -37,29 +42,29 @@ class UnusedAppListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        viewModel.appUsageList.observe(viewLifecycleOwner) { appUsageList ->
-            if (appUsageList != null) {
-                val gridView = requireActivity().findViewById<GridView>(R.id.gridViewUnusedAppList)
-                gridView.adapter = GridAdapter(
-                    requireContext(),
-                    R.layout.unused_app_item,
-                    appUsageList
-                )
-                gridView.onItemClickListener =
-                    AdapterView.OnItemClickListener { parent, _, position, _ ->
-                        val selectedItem = parent.getItemAtPosition(position) as AppUsage
-                        val intent = Intent()
-                        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                        intent.data = Uri.parse("package:${selectedItem.packageName}")
-                        startActivity(intent)
-                    }
-            }
-        }
+        viewModel.showingList.onEach { appUsageList ->
+            val gridView = requireActivity().findViewById<GridView>(R.id.gridViewUnusedAppList)
+                ?: return@onEach
+            gridView.adapter = GridAdapter(
+                requireContext(),
+                R.layout.unused_app_item,
+                appUsageList
+            )
+            (gridView.adapter as GridAdapter).notifyDataSetChanged()
+            gridView.onItemClickListener =
+                AdapterView.OnItemClickListener { parent, _, position, _ ->
+                    val selectedItem = parent.getItemAtPosition(position) as AppUsage
+                    val intent = Intent()
+                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    intent.data = Uri.parse("package:${selectedItem.packageName}")
+                    startActivity(intent)
+                }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
         binding.imageViewHowToPermitAppUsage.setOnClickListener {
             launchSetting()
         }
         binding.swipeRefreshLayoutUnusedAppList.setOnRefreshListener {
-            viewModel.getAppUsages()
+            getAppUsages()
             binding.swipeRefreshLayoutUnusedAppList.isRefreshing = false
         }
     }
@@ -70,7 +75,7 @@ class UnusedAppListFragment : Fragment() {
             title = R.string.app_name.getString(requireContext())
             setDisplayHomeAsUpEnabled(false)
         }
-        viewModel.getAppUsages()
+        getAppUsages()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -101,5 +106,12 @@ class UnusedAppListFragment : Fragment() {
 
     private fun launchSetting() {
         startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+    }
+
+    private fun getAppUsages() {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            val useCase: GetAppUsages by inject()
+            useCase.execute()
+        }
     }
 }

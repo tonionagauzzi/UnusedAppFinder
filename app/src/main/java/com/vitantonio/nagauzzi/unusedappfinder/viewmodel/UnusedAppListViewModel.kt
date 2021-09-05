@@ -8,28 +8,29 @@ import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
-import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 class UnusedAppListViewModel(
-    private val context: Context,
-    private val useCase: GetAppUsages
+    private val context: Context
 ) : ViewModel() {
 
-    val appUsageList = MutableLiveData<List<AppUsage>>()
-    val requestingPermission = MutableLiveData<Boolean>()
+    private val mutableShowingList = MutableStateFlow(emptyList<AppUsage>())
+    val showingList: StateFlow<List<AppUsage>> = mutableShowingList
+    val requestingPermission = MutableLiveData(false)
 
     init {
         AppUsageState.now.onEach { new ->
             when (new) {
                 is Success -> {
-                    appUsageList.value = new.list.filter {
+                    requestingPermission.value = false
+                    mutableShowingList.emit(new.list.filter {
                         it.enableUninstall && it.packageName != context.packageName
                     }.sortedByDescending {
                         if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
-                    }
+                    })
                 }
                 is Error -> {
                     if (new.exception is SecurityException) {
@@ -40,12 +41,5 @@ class UnusedAppListViewModel(
                 }
             }
         }.launchIn(viewModelScope)
-    }
-
-    fun getAppUsages() {
-        requestingPermission.value = false
-        viewModelScope.launch {
-            useCase.execute()
-        }
     }
 }
