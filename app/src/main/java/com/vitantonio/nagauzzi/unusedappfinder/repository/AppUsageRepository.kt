@@ -7,13 +7,15 @@ import java.util.*
 import android.content.pm.ApplicationInfo
 import android.content.Intent
 import com.vitantonio.nagauzzi.unusedappfinder.extension.*
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 interface AppUsageRepository {
     fun get(): List<AppUsage>
 }
 
-class AppUsageRepositoryImpl(
-    private val context: Context
+class AppUsageRepositoryImpl @Inject constructor(
+    @ApplicationContext private val context: Context
 ) : AppUsageRepository {
 
     override fun get(): List<AppUsage> {

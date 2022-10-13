@@ -12,19 +12,23 @@ import android.net.Uri
 import android.provider.Settings
 import com.vitantonio.nagauzzi.unusedappfinder.databinding.UnusedAppListFragmentBinding
 import android.view.*
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.view.adapter.GridAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UnusedAppListFragment : Fragment() {
 
-    private val viewModel: UnusedAppListViewModel by viewModel()
+    private val viewModel: UnusedAppListViewModel by viewModels()
+
+    @Inject lateinit var getAppUsages: GetAppUsages
 
     private lateinit var binding: UnusedAppListFragmentBinding
 
@@ -110,8 +114,7 @@ class UnusedAppListFragment : Fragment() {
 
     private fun getAppUsages() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            val useCase: GetAppUsages by inject()
-            useCase.execute()
+            getAppUsages.execute()
         }
     }
 }

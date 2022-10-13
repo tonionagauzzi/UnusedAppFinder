@@ -17,16 +17,40 @@
 #E#
 #F#
 #G#
+- artifact: com.google.dagger:dagger:+
+  name: Dagger
+  copyrightHolder: The Dagger Authors
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: com.google.dagger:dagger-lint-aar:+
+  name: Dagger Lint Rules AAR Distribution
+  copyrightHolder: The Dagger Authors
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: com.google.dagger:hilt-android:+
+  name: Hilt Android
+  copyrightHolder: The Dagger Authors
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: com.google.dagger:hilt-core:+
+  name: Hilt Core
+  copyrightHolder: The Dagger Authors
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
 #H#
 #I#
 #J#
-#K#
-- artifact: org.jetbrains.kotlin:kotlin-android-extensions-runtime:+
-  name: Kotlin Android
-  copyrightHolder: JetBrains s.r.o.
-  license: The Apache License, Version 2.0
+- artifact: javax.inject:javax.inject:+
+  name: javax.inject
+  copyrightHolder: The JSR-330 Expert Group
+  license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://kotlinlang.org/
+  url: http://code.google.com/p/atinject/
+#K#
 - artifact: org.jetbrains.kotlin:kotlin-stdlib:+
   name: Kotlin stdLib
   copyrightHolder: JetBrains s.r.o.
@@ -45,34 +69,16 @@
   license: The Apache License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   skip: true
+- artifact: org.jetbrains.kotlin:kotlin-stdlib-jdk8:+
+  name: Kotlin Stdlib Jdk8
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://kotlinlang.org/
 #L#
 #M#
 #N#
 #O#
-- artifact: org.koin:koin-core:+
-  name: koin-core
-  copyrightHolder: insert-Koin.io
-  license: The Apache License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://insert-koin.io/
-- artifact: org.koin:koin-android:+
-  name: koin-android
-  copyrightHolder: insert-Koin.io
-  license: The Apache License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://insert-koin.io/
-- artifact: org.koin:koin-androidx-scope:+
-  name: koin-androidx-scope
-  copyrightHolder: insert-Koin.io
-  license: The Apache License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://insert-koin.io/
-- artifact: org.koin:koin-androidx-viewmodel:+
-  name: koin-androidx-viewmodel
-  copyrightHolder: insert-Koin.io
-  license: The Apache License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://insert-koin.io/
 #P#
 #Q#
 #R#

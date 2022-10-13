@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.databinding.WebViewFragmentBinding
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.WebViewViewModel
 import androidx.navigation.fragment.findNavController
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WebViewFragment : Fragment() {
 
-    private val viewModel: WebViewViewModel by viewModel()
+    private val viewModel: WebViewViewModel by viewModels()
 
     private lateinit var binding: WebViewFragmentBinding
 

@@ -4,8 +4,9 @@ import com.vitantonio.nagauzzi.unusedappfinder.repository.AppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
+import javax.inject.Inject
 
-class GetAppUsages(
+class GetAppUsages @Inject constructor(
     private val repository: AppUsageRepository
 ) {
     suspend fun execute() {
