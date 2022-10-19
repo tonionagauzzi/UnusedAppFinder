@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.vitantonio.nagauzzi.unusedappfinder.R
 
 @Composable
@@ -39,7 +40,7 @@ fun UnusedAppDropdownMenu(
                 Text(text = stringResource(id = R.string.label_about))
             }
             DropdownMenuItem(onClick = {
-                // TODO: ComposableWebView と WebViewViewModel を使って OSS リストを表示する
+                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
                 onDismiss()
             }) {
                 Text(text = stringResource(id = R.string.label_oss_license))

@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("com.cookpad.android.licensetools")
+    id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.dagger.hilt.android")
     id("kotlin-android")
     id("kotlin-kapt")
@@ -59,57 +59,13 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
     implementation("com.google.accompanist:accompanist-drawablepainter:0.25.1")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.25.1")
+    implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.google.dagger:hilt-android:2.44")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20")
     kapt("com.google.dagger:hilt-compiler:2.44")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-}
-
-licenseTools {
-    ignoredGroups = setOf(
-        "androidx.activity",
-        "androidx.annotation",
-        "androidx.appcompat",
-        "androidx.arch.core",
-        "androidx.asynclayoutinflater",
-        "androidx.collection",
-        "androidx.concurrent",
-        "androidx.constraintlayout",
-        "androidx.coordinatorlayout",
-        "androidx.cursoradapter",
-        "androidx.customview",
-        "androidx.databinding",
-        "androidx.documentfile",
-        "androidx.drawerlayout",
-        "androidx.emoji2",
-        "androidx.fragment",
-        "androidx.interpolator",
-        "androidx.legacy",
-        "androidx.loader",
-        "androidx.lifecycle",
-        "androidx.localbroadcastmanager",
-        "androidx.media",
-        "androidx.navigation",
-        "androidx.print",
-        "androidx.recyclerview",
-        "androidx.resourceinspection",
-        "androidx.savedstate",
-        "androidx.slidingpanelayout",
-        "androidx.startup",
-        "androidx.swiperefreshlayout",
-        "androidx.tracing",
-        "androidx.transition",
-        "androidx.vectordrawable",
-        "androidx.versionedparcelable",
-        "androidx.viewpager",
-        "androidx.window",
-        "com.google.code.findbugs",
-        "com.google.guava",
-        "org.jetbrains",
-        "org.jetbrains.kotlinx"
-    )
 }
 
 kapt {

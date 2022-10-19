@@ -4,14 +4,11 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter().mavenContent {
-            includeGroup("com.cookpad.android.licensetools")
-        }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.2.2")
+        classpath("com.google.android.gms:oss-licenses-plugin:0.10.5")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20")
-        classpath("com.cookpad.android.licensetools:license-tools-plugin:1.7.0")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
