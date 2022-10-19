@@ -1,6 +1,5 @@
 package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
@@ -22,22 +21,26 @@ class UnusedAppListViewModel @Inject constructor(
 
     private val mutableShowingList = MutableStateFlow(emptyList<AppUsage>())
     val showingList: StateFlow<List<AppUsage>> = mutableShowingList
-    val requestingPermission = MutableLiveData(false)
+
+    private val mutableRequestingPermission = MutableStateFlow(false)
+    val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
 
     init {
         AppUsageState.now.onEach { new ->
             when (new) {
                 is Success -> {
-                    requestingPermission.value = false
+                    mutableRequestingPermission.emit(false)
                     mutableShowingList.emit(new.list.filter {
-                        it.enableUninstall && it.packageName != packageNameRepository.get()
+                        // TODO: 1行下をコメントアウトして、2行下と入れ替える
+                        // it.enableUninstall && it.packageName != packageNameRepository.get()
+                        true
                     }.sortedByDescending {
                         if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
                     })
                 }
                 is Error -> {
                     if (new.exception is SecurityException) {
-                        requestingPermission.value = true
+                        mutableRequestingPermission.emit(true)
                     }
                 }
                 else -> {

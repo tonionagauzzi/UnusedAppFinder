@@ -2,6 +2,7 @@
     <string name="app_name">使わなくなったアプリを削除しよう</string>
     <string name="app_name_short">アプリ削除</string>
     <string name="description_image">画像</string>
+    <string name="description_how_to_permit_app_usage">このアプリの使用状況へのアクセス設定をONにしてください。</string>
     <string name="format_date">yyyy/MM/dd</string>
     <string name="label_last_used_date">最終起動日</string>
     <string name="label_installed_date">インストール日</string>
