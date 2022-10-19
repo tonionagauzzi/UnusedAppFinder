@@ -31,8 +31,7 @@ class UnusedAppListViewModel @Inject constructor(
                 is Success -> {
                     mutableRequestingPermission.emit(false)
                     mutableShowingList.emit(new.list.filter {
-                        // TODO: 1行下をコメントアウトして、2行下と入れ替える
-                        // it.enableUninstall && it.packageName != packageNameRepository.get()
+                        it.enableUninstall && it.packageName != packageNameRepository.get()
                         true
                     }.sortedByDescending {
                         if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
