@@ -2,7 +2,8 @@
     <string name="app_name">UnusedAppFinder</string>
     <string name="app_name_short">UnusedAppFinder</string>
     <string name="description_image">image</string>
-    <string name="description_how_to_permit_app_usage">Please turn on the setting of Permit usage access for this application.</string>
+    <string name="description_how_to_permit_app_usage">Please open the setting, choose %1$s and permit usage access.</string>
+    <string name="button_permit_app_usage">Open the setting</string>
     <string name="format_date">dd MMM yyyy</string>
     <string name="label_last_used_date">Last Used</string>
     <string name="label_installed_date">Installed</string>
