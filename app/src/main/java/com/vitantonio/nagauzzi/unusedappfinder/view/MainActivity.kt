@@ -9,6 +9,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -44,12 +45,19 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                 ) { contentPadding ->
+                    val coroutineScope = rememberCoroutineScope()
                     SwipeRefresh(
                         state = rememberSwipeRefreshState(isRefreshing),
-                        onRefresh = { getAppUsages() },
+                        onRefresh = {
+                            coroutineScope.launch {
+                                getAppUsages.execute()
+                            }
+                        },
                     ) {
                         UnusedAppRoot(
-                            modifier = modifier.fillMaxSize().padding(contentPadding)
+                            modifier = modifier
+                                .fillMaxSize()
+                                .padding(contentPadding)
                         )
                     }
                 }
@@ -59,10 +67,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        getAppUsages()
-    }
 
-    private fun getAppUsages() {
         CoroutineScope(Dispatchers.Default).launch {
             getAppUsages.execute()
         }
