@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    // TODO: The following code may not be necessary.
     // Add missing dependencies for JDK 9+
     if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
         annotationProcessor("javax.xml.bind:jaxb-api:2.3.1")
@@ -50,23 +51,20 @@ dependencies {
     }
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("androidx.activity:activity-compose:1.7.1")
-    implementation("androidx.compose.material:material:1.4.2")
-    implementation("androidx.compose.ui:ui:1.4.2")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.2")
-    implementation("androidx.core:core-ktx:1.10.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation("androidx.navigation:navigation-compose:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
-    implementation("com.google.accompanist:accompanist-drawablepainter:0.25.1")
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.25.1")
-    implementation("com.google.android.gms:play-services-oss-licenses:17.0.1")
-    implementation("com.google.dagger:hilt-android:2.45")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0")
-    kapt("com.google.dagger:hilt-compiler:2.45")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.bundles.accompanist)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.bundles.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.viewModel.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.gms.play.services.oss.licenses)
+    implementation(libs.hilt.android)
+    implementation(libs.kotlin.stdlib)
+    kapt(libs.hilt.compiler)
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidx.test.espresso)
+    androidTestImplementation(libs.androidx.test.runner)
 }
 
 kapt {
