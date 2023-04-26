@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetAppUsages @Inject constructor(
     private val repository: AppUsageRepository
 ) {
-    suspend fun execute() {
+    suspend operator fun invoke() {
         try {
             val appUsageList = repository.get()
             AppUsageState.update(Success(appUsageList))

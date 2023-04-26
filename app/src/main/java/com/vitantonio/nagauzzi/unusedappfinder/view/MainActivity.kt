@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                         state = rememberSwipeRefreshState(isRefreshing),
                         onRefresh = {
                             coroutineScope.launch {
-                                getAppUsages.execute()
+                                getAppUsages()
                             }
                         },
                     ) {
@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
         super.onResume()
 
         CoroutineScope(Dispatchers.Default).launch {
-            getAppUsages.execute()
+            getAppUsages()
         }
     }
 }
