@@ -39,17 +39,6 @@ android {
 }
 
 dependencies {
-    // TODO: The following code may not be necessary.
-    // Add missing dependencies for JDK 9+
-    if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-        annotationProcessor("javax.xml.bind:jaxb-api:2.3.1")
-        annotationProcessor("com.sun.xml.bind:jaxb-core:2.3.0.1")
-        annotationProcessor("com.sun.xml.bind:jaxb-impl:2.3.2")
-        kapt("com.sun.xml.bind:jaxb-core:2.3.0.1")
-        kapt("javax.xml.bind:jaxb-api:2.3.1")
-        kapt("com.sun.xml.bind:jaxb-impl:2.3.2")
-    }
-
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(libs.bundles.accompanist)
     implementation(libs.androidx.activity.compose)
