@@ -40,5 +40,5 @@ kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", v
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [bundles]
-accompanist = ["accompanist-drawablepainter", "accompanist-swiperefresh"]
+accompanist = ["accompanist-drawablepainter"]
 compose = ["androidx-compose-material", "androidx-compose-ui", "androidx-compose-ui-tooling-preview"]
