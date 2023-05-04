@@ -54,6 +54,7 @@ dependencies {
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.espresso)
     androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
 }
 
 kapt {

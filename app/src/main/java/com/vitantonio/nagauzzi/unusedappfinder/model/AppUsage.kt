@@ -11,3 +11,12 @@ data class AppUsage(
     val lastUsedTime: Long,
     val enableUninstall: Boolean
 )
+
+fun AppUsage.equalsWithoutIcon(expected: AppUsage) = name == expected.name &&
+        packageName == expected.packageName && activityName == expected.activityName &&
+        installedTime == expected.installedTime && lastUsedTime == expected.lastUsedTime &&
+        enableUninstall == expected.enableUninstall
+
+fun List<AppUsage>.equalsWithoutIcon(expected: List<AppUsage>) = List(size) { index ->
+    this[index].equalsWithoutIcon(expected[index])
+}.all { it }
