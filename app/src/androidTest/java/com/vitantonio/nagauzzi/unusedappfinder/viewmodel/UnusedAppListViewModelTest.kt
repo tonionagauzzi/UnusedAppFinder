@@ -7,7 +7,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.model.equalsWithoutIcon
-import com.vitantonio.nagauzzi.unusedappfinder.repository.PackageNameRepository
+import com.vitantonio.nagauzzi.unusedappfinder.repository.MockPackageNameRepository
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
@@ -20,10 +20,6 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 
-class MockPackageNameRepository : PackageNameRepository {
-    override fun get() = "com.vitantonio.nagauzzi.mock.packagename"
-}
-
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(AndroidJUnit4ClassRunner::class)
 class UnusedAppListViewModelTest {
@@ -31,9 +27,9 @@ class UnusedAppListViewModelTest {
     fun test_sort_showing_list() = runTest {
         // Initialize
         val viewModel = UnusedAppListViewModel(MockPackageNameRepository())
+        val context: Context = ApplicationProvider.getApplicationContext()
 
         // Input
-        val context: Context = ApplicationProvider.getApplicationContext()
         val appUsageList = listOf(
             AppUsage(
                 name = "name0",
@@ -66,7 +62,7 @@ class UnusedAppListViewModelTest {
         AppUsageState.update(to = Success(appUsageList))
 
         // Check output
-        val expectedList = listOf(
+        val expectedAppUsageList = listOf(
             // Descending by last used time
             AppUsage(
                 name = "name1",
@@ -97,7 +93,7 @@ class UnusedAppListViewModelTest {
             ),
         )
         val showingList = viewModel.showingList.first()
-        assertTrue(showingList.equalsWithoutIcon(expectedList))
+        assertTrue(showingList.equalsWithoutIcon(expectedAppUsageList))
     }
 
     @Test
