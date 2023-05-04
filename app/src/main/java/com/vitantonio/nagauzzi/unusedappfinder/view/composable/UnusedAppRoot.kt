@@ -12,7 +12,7 @@ fun UnusedAppRoot(
     modifier: Modifier,
     unusedAppListViewModel: UnusedAppListViewModel = viewModel()
 ) {
-    val requestingPermission by unusedAppListViewModel.requestingPermission.collectAsState()
+    val requestingPermission by unusedAppListViewModel.requestingPermission.collectAsState(false)
     if (requestingPermission) {
         HowToPermitAppUsage(modifier)
     } else {

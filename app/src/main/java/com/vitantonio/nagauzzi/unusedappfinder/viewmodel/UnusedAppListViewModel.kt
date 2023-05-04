@@ -8,10 +8,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,11 +16,11 @@ class UnusedAppListViewModel @Inject constructor(
     packageNameRepository: PackageNameRepository
 ) : ViewModel() {
 
-    private val mutableShowingList = MutableStateFlow(emptyList<AppUsage>())
-    val showingList: StateFlow<List<AppUsage>> = mutableShowingList
+    private val mutableShowingList = MutableSharedFlow<List<AppUsage>>()
+    val showingList: SharedFlow<List<AppUsage>> = mutableShowingList
 
-    private val mutableRequestingPermission = MutableStateFlow(false)
-    val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
+    private val mutableRequestingPermission = MutableSharedFlow<Boolean>()
+    val requestingPermission: SharedFlow<Boolean> = mutableRequestingPermission
 
     init {
         AppUsageState.now.onEach { new ->

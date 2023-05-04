@@ -12,8 +12,9 @@ import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -95,7 +96,7 @@ class UnusedAppListViewModelTest {
                 enableUninstall = true
             ),
         )
-        val showingList = viewModel.showingList.filter { it.isNotEmpty() }.first()
+        val showingList = viewModel.showingList.first()
         assertTrue(showingList.equalsWithoutIcon(expectedList))
     }
 
@@ -121,7 +122,12 @@ class UnusedAppListViewModelTest {
         AppUsageState.update(to = Error(IllegalArgumentException("Dummy illegal argument exception")))
 
         // Check output
-        val isRequestedPermissions = viewModel.requestingPermission.first()
-        assertFalse(isRequestedPermissions)
+        val job = launch {
+            viewModel.requestingPermission.collect {
+                fail("This flow shouldn't be collected.")
+            }
+        }
+        delay(100)
+        job.cancel()
     }
 }

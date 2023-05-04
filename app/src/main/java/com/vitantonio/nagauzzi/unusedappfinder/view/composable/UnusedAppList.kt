@@ -22,7 +22,7 @@ fun UnusedAppList(
     unusedAppListViewModel: UnusedAppListViewModel = viewModel(),
 ) {
     val context = LocalContext.current
-    val showingList by unusedAppListViewModel.showingList.collectAsState()
+    val showingList by unusedAppListViewModel.showingList.collectAsState(emptyList())
 
     LazyVerticalGrid(
         modifier = modifier,
