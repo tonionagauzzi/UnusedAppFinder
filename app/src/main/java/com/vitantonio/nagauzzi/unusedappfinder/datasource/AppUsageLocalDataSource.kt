@@ -4,10 +4,13 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
-import com.vitantonio.nagauzzi.unusedappfinder.extension.*
+import com.vitantonio.nagauzzi.unusedappfinder.extension.minusMonths
+import com.vitantonio.nagauzzi.unusedappfinder.extension.resetDateToStartDayOfMonth
+import com.vitantonio.nagauzzi.unusedappfinder.extension.resetTimeToEndOfDay
+import com.vitantonio.nagauzzi.unusedappfinder.extension.resetTimeToStartOfDay
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.*
+import java.time.Instant
 import javax.inject.Inject
 
 class AppUsageLocalDataSource @Inject constructor(
@@ -17,15 +20,15 @@ class AppUsageLocalDataSource @Inject constructor(
         // Get usage stats list
         val usageStatsManager =
             context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-        val calendar = Calendar.getInstance()
-        val today = Date()
-        val to = today.changeDay(1).resetDateToZeroOClock(calendar).changeMillisecond(-1)
-        val from = Date().changeMonth(-5, calendar).resetDateToStartDayOfMonth(calendar)
-            .resetDateToZeroOClock(calendar)
+        val today = Instant.now()
+        val to = today.resetTimeToEndOfDay()
+        val from = today.minusMonths(5)
+            .resetDateToStartDayOfMonth()
+            .resetTimeToStartOfDay()
         val queryUsageStats = usageStatsManager.queryUsageStats(
             UsageStatsManager.INTERVAL_MONTHLY,
-            from.time,
-            to.time
+            from.toEpochMilli(),
+            to.toEpochMilli()
         )
         if (queryUsageStats.size == 0) {
             // Something is wrong

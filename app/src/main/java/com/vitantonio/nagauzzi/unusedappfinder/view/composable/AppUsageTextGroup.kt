@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.sp
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
-import java.util.*
+import java.time.Instant
 
 @Composable
 fun AppUsageTextGroup(
@@ -41,7 +41,7 @@ fun AppUsageTextGroup(
         modifier = modifier.width(128.dp),
         fontSize = 12.sp,
         maxLines = 1,
-        text = Date(unusedApp.lastUsedTime).getString(),
+        text = Instant.ofEpochMilli(unusedApp.lastUsedTime).getString("yyyy/MM/dd"),
         textAlign = TextAlign.Center,
     )
     Text(
@@ -59,7 +59,7 @@ fun AppUsageTextGroup(
             .padding(bottom = 12.dp),
         fontSize = 12.sp,
         maxLines = 1,
-        text = Date(unusedApp.installedTime).getString(),
+        text = Instant.ofEpochMilli(unusedApp.installedTime).getString("yyyy/MM/dd"),
         textAlign = TextAlign.Center,
     )
 }
