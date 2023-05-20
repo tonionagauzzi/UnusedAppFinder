@@ -48,7 +48,9 @@ fun UnusedAppList(
                 )
                 AppUsageTextGroup(
                     modifier = modifier,
-                    unusedApp = showingItem,
+                    name = showingItem.name,
+                    lastUsedTime = showingItem.lastUsedTime,
+                    installedTime = showingItem.installedTime
                 )
             }
         }

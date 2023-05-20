@@ -7,17 +7,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
-import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import java.time.Instant
 
 @Composable
 fun AppUsageTextGroup(
     modifier: Modifier,
-    unusedApp: AppUsage,
+    name: String,
+    lastUsedTime: Long,
+    installedTime: Long
 ) {
     Text(
         modifier = modifier
@@ -25,7 +27,7 @@ fun AppUsageTextGroup(
             .padding(top = 4.dp, bottom = 4.dp),
         fontSize = 16.sp,
         maxLines = 1,
-        text = unusedApp.name,
+        text = name,
         textAlign = TextAlign.Center,
     )
     Text(
@@ -41,7 +43,7 @@ fun AppUsageTextGroup(
         modifier = modifier.width(128.dp),
         fontSize = 12.sp,
         maxLines = 1,
-        text = Instant.ofEpochMilli(unusedApp.lastUsedTime).getString("yyyy/MM/dd"),
+        text = Instant.ofEpochMilli(lastUsedTime).getString("yyyy/MM/dd"),
         textAlign = TextAlign.Center,
     )
     Text(
@@ -59,7 +61,18 @@ fun AppUsageTextGroup(
             .padding(bottom = 12.dp),
         fontSize = 12.sp,
         maxLines = 1,
-        text = Instant.ofEpochMilli(unusedApp.installedTime).getString("yyyy/MM/dd"),
+        text = Instant.ofEpochMilli(installedTime).getString("yyyy/MM/dd"),
         textAlign = TextAlign.Center,
+    )
+}
+
+@Preview
+@Composable
+fun PreviewAppUsageTextGroup() {
+    AppUsageTextGroup(
+        modifier = Modifier,
+        name = "name0",
+        installedTime = 0,
+        lastUsedTime = 0
     )
 }
