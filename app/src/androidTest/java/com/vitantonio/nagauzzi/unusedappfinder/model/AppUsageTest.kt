@@ -1,9 +1,8 @@
 package com.vitantonio.nagauzzi.unusedappfinder.model
 
 import android.content.Context
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.test.core.app.ApplicationProvider
-import com.vitantonio.nagauzzi.unusedappfinder.R
+import com.vitantonio.nagauzzi.unusedappfinder.extension.getFakeIcon
 import org.junit.Test
 
 class AppUsageTest {
@@ -18,7 +17,7 @@ class AppUsageTest {
                 name = "name0",
                 packageName = "packageName0",
                 activityName = "activityName0",
-                icon = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 0,
                 lastUsedTime = 0,
                 enableUninstall = true
@@ -27,7 +26,7 @@ class AppUsageTest {
                 name = "name1",
                 packageName = "packageName1",
                 activityName = "activityName1",
-                icon = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 2,
                 lastUsedTime = 2,
                 enableUninstall = true
@@ -36,7 +35,7 @@ class AppUsageTest {
                 name = "name2",
                 packageName = "packageName2",
                 activityName = "activityName2",
-                icon = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 1,
                 lastUsedTime = 1,
                 enableUninstall = true
@@ -50,7 +49,7 @@ class AppUsageTest {
                 name = "name0",
                 packageName = "packageName0",
                 activityName = "activityName0",
-                icon = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_background)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 0,
                 lastUsedTime = 0,
                 enableUninstall = true
@@ -59,7 +58,7 @@ class AppUsageTest {
                 name = "name1",
                 packageName = "packageName1",
                 activityName = "activityName1",
-                icon = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_background)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 2,
                 lastUsedTime = 2,
                 enableUninstall = true
@@ -68,7 +67,7 @@ class AppUsageTest {
                 name = "name2",
                 packageName = "packageName2",
                 activityName = "activityName2",
-                icon = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_background)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 1,
                 lastUsedTime = 1,
                 enableUninstall = true

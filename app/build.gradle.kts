@@ -41,6 +41,7 @@ android {
 
 dependencies {
     coreLibraryDesugaring(libs.desugar)
+    debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(libs.bundles.accompanist)
     implementation(libs.androidx.activity.compose)

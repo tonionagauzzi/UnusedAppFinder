@@ -1,12 +1,11 @@
 package com.vitantonio.nagauzzi.unusedappfinder.repository
 
 import android.content.Context
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.test.core.app.ApplicationProvider
-import com.vitantonio.nagauzzi.unusedappfinder.R
+import com.vitantonio.nagauzzi.unusedappfinder.extension.getFakeIcon
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 
-class MockAppUsageRepository: AppUsageRepository {
+class MockAppUsageRepository : AppUsageRepository {
     override fun get(): List<AppUsage> {
         val context: Context = ApplicationProvider.getApplicationContext()
         return listOf(
@@ -14,7 +13,7 @@ class MockAppUsageRepository: AppUsageRepository {
                 name = "name0",
                 packageName = "packageName0",
                 activityName = "activityName0",
-                icon = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 0,
                 lastUsedTime = 0,
                 enableUninstall = true
@@ -23,7 +22,7 @@ class MockAppUsageRepository: AppUsageRepository {
                 name = "name1",
                 packageName = "packageName1",
                 activityName = "activityName1",
-                icon = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 2,
                 lastUsedTime = 2,
                 enableUninstall = true
@@ -32,7 +31,7 @@ class MockAppUsageRepository: AppUsageRepository {
     }
 }
 
-class ErrorAppUsageRepository: AppUsageRepository {
+class ErrorAppUsageRepository : AppUsageRepository {
     override fun get(): List<AppUsage> {
         throw SecurityException("Dummy security exception")
     }

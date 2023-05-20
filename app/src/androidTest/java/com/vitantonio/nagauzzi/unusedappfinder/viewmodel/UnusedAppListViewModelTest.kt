@@ -1,11 +1,10 @@
 package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 
 import android.content.Context
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
-import com.vitantonio.nagauzzi.unusedappfinder.R
+import com.vitantonio.nagauzzi.unusedappfinder.extension.getFakeIcon
 import com.vitantonio.nagauzzi.unusedappfinder.model.equalsWithoutIcon
 import com.vitantonio.nagauzzi.unusedappfinder.repository.MockPackageNameRepository
 import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
@@ -35,7 +34,7 @@ class UnusedAppListViewModelTest {
                 name = "name0",
                 packageName = "packageName0",
                 activityName = "activityName0",
-                icon = getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 0,
                 lastUsedTime = 0,
                 enableUninstall = true
@@ -44,7 +43,7 @@ class UnusedAppListViewModelTest {
                 name = "name1",
                 packageName = "packageName1",
                 activityName = "activityName1",
-                icon = getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 2,
                 lastUsedTime = 2,
                 enableUninstall = true
@@ -53,7 +52,7 @@ class UnusedAppListViewModelTest {
                 name = "name2",
                 packageName = "packageName2",
                 activityName = "activityName2",
-                icon = getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 1,
                 lastUsedTime = 1,
                 enableUninstall = true
@@ -68,7 +67,7 @@ class UnusedAppListViewModelTest {
                 name = "name1",
                 packageName = "packageName1",
                 activityName = "activityName1",
-                icon = getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 2,
                 lastUsedTime = 2,
                 enableUninstall = true
@@ -77,7 +76,7 @@ class UnusedAppListViewModelTest {
                 name = "name2",
                 packageName = "packageName2",
                 activityName = "activityName2",
-                icon = getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 1,
                 lastUsedTime = 1,
                 enableUninstall = true
@@ -86,7 +85,7 @@ class UnusedAppListViewModelTest {
                 name = "name0",
                 packageName = "packageName0",
                 activityName = "activityName0",
-                icon = getDrawable(context, R.drawable.ic_launcher_foreground)!!,
+                icon = context.getFakeIcon(),
                 installedTime = 0,
                 lastUsedTime = 0,
                 enableUninstall = true

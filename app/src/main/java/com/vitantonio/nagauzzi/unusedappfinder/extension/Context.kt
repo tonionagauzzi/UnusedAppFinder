@@ -1,5 +1,10 @@
 package com.vitantonio.nagauzzi.unusedappfinder.extension
 
 import android.content.Context
+import android.graphics.drawable.Drawable
+import androidx.appcompat.content.res.AppCompatResources
+import com.vitantonio.nagauzzi.unusedappfinder.R
 
-fun Int.getString(context: Context): String = context.getString(this)
+fun Context.getFakeIcon(): Drawable = AppCompatResources.getDrawable(
+    this, R.drawable.ic_launcher_foreground
+)!!

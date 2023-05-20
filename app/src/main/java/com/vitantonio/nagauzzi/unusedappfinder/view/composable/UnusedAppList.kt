@@ -11,9 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import com.vitantonio.nagauzzi.unusedappfinder.extension.getFakeIcon
+import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 
 @Composable
@@ -24,18 +27,33 @@ fun UnusedAppList(
     val context = LocalContext.current
     val showingList by unusedAppListViewModel.showingList.collectAsState(emptyList())
 
+    UnusedAppStatelessList(
+        modifier = modifier,
+        appUsageList = showingList,
+        onColumnClicked = { packageName ->
+            context.startActivity(Intent().apply {
+                action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                data = Uri.parse("package:${packageName}")
+            })
+        }
+    )
+}
+
+@Composable
+fun UnusedAppStatelessList(
+    modifier: Modifier = Modifier,
+    appUsageList: List<AppUsage>,
+    onColumnClicked: (packageName: String) -> Unit
+) {
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Adaptive(minSize = 128.dp),
         contentPadding = PaddingValues(4.dp),
     ) {
-        items(showingList) { showingItem ->
+        items(appUsageList) { appUsage ->
             Column(
                 modifier = modifier.clickable {
-                    context.startActivity(Intent().apply {
-                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                        data = Uri.parse("package:${showingItem.packageName}")
-                    })
+                    onColumnClicked(appUsage.packageName)
                 },
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -43,27 +61,72 @@ fun UnusedAppList(
                     modifier = modifier
                         .size(60.dp)
                         .padding(top = 8.dp, bottom = 4.dp),
-                    contentDescription = showingItem.name,
-                    painter = rememberDrawablePainter(showingItem.icon),
+                    contentDescription = appUsage.name,
+                    painter = rememberDrawablePainter(appUsage.icon),
                 )
                 AppUsageTextGroup(
                     modifier = modifier,
-                    name = showingItem.name,
-                    lastUsedTime = showingItem.lastUsedTime,
-                    installedTime = showingItem.installedTime
+                    name = appUsage.name,
+                    lastUsedTime = appUsage.lastUsedTime,
+                    installedTime = appUsage.installedTime
                 )
             }
         }
     }
 }
 
-// FIXME: Composable内でHiltのインスタンスを取得する方法がわからないので、Previewを実現できていない。
-// @Preview
-// @Composable
-// fun PreviewUnusedAppList() {
-//     UnusedAppList(
-//         modifier = Modifier,
-//         unusedAppListViewModel = viewModel(),
-//         getAppUsages =
-//     )
-// }
+@Preview
+@Composable
+fun PreviewUnusedAppList() {
+    val context = LocalContext.current
+    UnusedAppStatelessList(
+        appUsageList = listOf(
+            AppUsage(
+                name = "name0",
+                packageName = "packageName0",
+                activityName = "activityName0",
+                icon = context.getFakeIcon(),
+                installedTime = 0,
+                lastUsedTime = 0,
+                enableUninstall = true
+            ),
+            AppUsage(
+                name = "name1",
+                packageName = "packageName1",
+                activityName = "activityName1",
+                icon = context.getFakeIcon(),
+                installedTime = 86400000,
+                lastUsedTime = 86400000,
+                enableUninstall = true
+            ),
+            AppUsage(
+                name = "name2",
+                packageName = "packageName2",
+                activityName = "activityName2",
+                icon = context.getFakeIcon(),
+                installedTime = 172800000,
+                lastUsedTime = 172800000,
+                enableUninstall = true
+            ),
+            AppUsage(
+                name = "name3",
+                packageName = "packageName3",
+                activityName = "activityName3",
+                icon = context.getFakeIcon(),
+                installedTime = 259200000,
+                lastUsedTime = 259200000,
+                enableUninstall = true
+            ),
+            AppUsage(
+                name = "name4",
+                packageName = "packageName4",
+                activityName = "activityName4",
+                icon = context.getFakeIcon(),
+                installedTime = 345600000,
+                lastUsedTime = 345600000,
+                enableUninstall = true
+            ),
+        ),
+        onColumnClicked = {}
+    )
+}

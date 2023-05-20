@@ -4,7 +4,6 @@ import android.content.Intent
 import android.provider.Settings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -22,7 +21,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.R
 
 @Composable
 fun HowToPermitAppUsage(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
 
@@ -54,5 +53,5 @@ fun HowToPermitAppUsage(
 @Preview
 @Composable
 fun PreviewHowToPermitAppUsage() {
-    HowToPermitAppUsage(Modifier.fillMaxSize())
+    HowToPermitAppUsage()
 }
