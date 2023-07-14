@@ -16,11 +16,11 @@ class UnusedAppListViewModel @Inject constructor(
     packageNameRepository: PackageNameRepository
 ) : ViewModel() {
 
-    private val mutableShowingList = MutableSharedFlow<List<AppUsage>>()
-    val showingList: SharedFlow<List<AppUsage>> = mutableShowingList
+    private val mutableShowingList = MutableStateFlow<List<AppUsage>>(emptyList())
+    val showingList: StateFlow<List<AppUsage>> = mutableShowingList
 
-    private val mutableRequestingPermission = MutableSharedFlow<Boolean>()
-    val requestingPermission: SharedFlow<Boolean> = mutableRequestingPermission
+    private val mutableRequestingPermission = MutableStateFlow<Boolean>(false)
+    val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
 
     init {
         AppUsageState.now.onEach { new ->
