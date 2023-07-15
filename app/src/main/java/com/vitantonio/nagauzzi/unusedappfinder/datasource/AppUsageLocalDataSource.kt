@@ -35,7 +35,7 @@ class AppUsageLocalDataSource @Inject constructor(
             throw SecurityException("UsageStatsManager.queryUsageStats() returned empty list.")
         }
         // FIXME It seems not to be able to get usage stats before recent shutdown...
-        //val oldestStats = queryUsageStats.filter { it.lastTimeUsed > 1000000000000 }.minBy { it.lastTimeUsed }
+        // val oldestStats = queryUsageStats.filter { it.lastTimeUsed > 1000000000000 }.minBy { it.lastTimeUsed }
 
         // Get installed app list
         val packageManager = context.packageManager
@@ -55,8 +55,8 @@ class AppUsageLocalDataSource @Inject constructor(
                     0
                 ).firstInstallTime,
                 lastUsedTime = queryUsageStats.filter {
-                    it.packageName == resolveInfo.activityInfo.packageName
-                            && it.lastTimeUsed >= 946652400000 // 2000/01/01 00:00:00以降なら正しいデータとみなす
+                    it.packageName == resolveInfo.activityInfo.packageName &&
+                        it.lastTimeUsed >= 946652400000 // 2000/01/01 00:00:00以降なら正しいデータとみなす
                 }.maxByOrNull {
                     it.lastTimeUsed
                 }?.lastTimeUsed ?: 0,

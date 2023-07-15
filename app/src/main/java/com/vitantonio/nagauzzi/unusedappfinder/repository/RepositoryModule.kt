@@ -12,12 +12,12 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindAppUsageRepository(
-        appUsageRepositoryImpl: AppUsageRepositoryImpl
+        appUsageRepositoryImpl: AppUsageRepositoryImpl,
     ): AppUsageRepository
 
     @Binds
     @Singleton
     abstract fun bindPackageNameRepository(
-        packageNameRepositoryImpl: PackageNameRepositoryImpl
+        packageNameRepositoryImpl: PackageNameRepositoryImpl,
     ): PackageNameRepository
 }

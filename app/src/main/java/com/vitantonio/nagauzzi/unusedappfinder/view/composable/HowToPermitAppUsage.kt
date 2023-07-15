@@ -28,7 +28,7 @@ fun HowToPermitAppUsage(
     Column(
         modifier = modifier.padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = stringResource(id = R.string.description_how_to_permit_app_usage, stringResource(R.string.app_name_short))
@@ -36,7 +36,7 @@ fun HowToPermitAppUsage(
         Button(
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = MaterialTheme.colors.primary,
-                disabledBackgroundColor = MaterialTheme.colors.primaryVariant,
+                disabledBackgroundColor = MaterialTheme.colors.primaryVariant
             ),
             onClick = {
                 context.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
@@ -44,7 +44,7 @@ fun HowToPermitAppUsage(
         ) {
             Text(
                 text = stringResource(id = R.string.button_permit_app_usage),
-                fontSize = 16.sp,
+                fontSize = 16.sp
             )
         }
     }

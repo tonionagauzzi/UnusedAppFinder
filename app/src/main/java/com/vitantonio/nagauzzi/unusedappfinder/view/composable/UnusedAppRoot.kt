@@ -10,7 +10,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 @Composable
 fun UnusedAppRoot(
     modifier: Modifier,
-    unusedAppListViewModel: UnusedAppListViewModel = viewModel()
+    unusedAppListViewModel: UnusedAppListViewModel = viewModel(),
 ) {
     val requestingPermission by unusedAppListViewModel.requestingPermission.collectAsState()
     if (requestingPermission) {

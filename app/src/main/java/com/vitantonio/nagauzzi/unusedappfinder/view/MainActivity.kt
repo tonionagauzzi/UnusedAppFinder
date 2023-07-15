@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                         UnusedAppTopBar(
                             modifier = modifier
                         )
-                    },
+                    }
                 ) { contentPadding ->
                     val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh = {
                         unusedAppListViewModel.reload()

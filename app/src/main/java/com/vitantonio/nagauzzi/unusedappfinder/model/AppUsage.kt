@@ -9,13 +9,13 @@ data class AppUsage(
     val icon: Drawable,
     val installedTime: Long,
     val lastUsedTime: Long,
-    val enableUninstall: Boolean
+    val enableUninstall: Boolean,
 )
 
 fun AppUsage.equalsWithoutIcon(expected: AppUsage) = name == expected.name &&
-        packageName == expected.packageName && activityName == expected.activityName &&
-        installedTime == expected.installedTime && lastUsedTime == expected.lastUsedTime &&
-        enableUninstall == expected.enableUninstall
+    packageName == expected.packageName && activityName == expected.activityName &&
+    installedTime == expected.installedTime && lastUsedTime == expected.lastUsedTime &&
+    enableUninstall == expected.enableUninstall
 
 fun List<AppUsage>.equalsWithoutIcon(expected: List<AppUsage>) = List(size) { index ->
     this[index].equalsWithoutIcon(expected[index])

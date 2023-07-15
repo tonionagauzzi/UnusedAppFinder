@@ -3,8 +3,8 @@ package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getFakeIcon
+import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.model.equalsWithoutIcon
 import com.vitantonio.nagauzzi.unusedappfinder.repository.ErrorAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.MockAppUsageRepository
@@ -14,7 +14,8 @@ import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -62,7 +63,7 @@ class UnusedAppListViewModelTest {
                 installedTime = 0,
                 lastUsedTime = 0,
                 enableUninstall = true
-            ),
+            )
         )
         val showingList = viewModel.showingList.first()
         assertTrue(showingList.equalsWithoutIcon(expectedAppUsageList))

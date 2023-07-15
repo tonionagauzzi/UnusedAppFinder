@@ -7,14 +7,15 @@ import com.vitantonio.nagauzzi.unusedappfinder.repository.PackageNameRepository
 import com.vitantonio.nagauzzi.unusedappfinder.result.AppUsageResult
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UnusedAppListViewModel @Inject constructor(
     private val getAppUsages: GetAppUsages,
-    private val packageNameRepository: PackageNameRepository
+    private val packageNameRepository: PackageNameRepository,
 ) : ViewModel() {
 
     private val mutableShowingList = MutableStateFlow<List<AppUsage>>(emptyList())
@@ -28,12 +29,14 @@ class UnusedAppListViewModel @Inject constructor(
             is AppUsageResult.Success -> {
                 viewModelScope.launch {
                     mutableRequestingPermission.emit(false)
-                    mutableShowingList.emit(result.list.filter {
-                        it.enableUninstall && it.packageName != packageNameRepository.get()
-                        true
-                    }.sortedByDescending {
-                        if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
-                    })
+                    mutableShowingList.emit(
+                        result.list.filter {
+                            it.enableUninstall && it.packageName != packageNameRepository.get()
+                            true
+                        }.sortedByDescending {
+                            if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
+                        }
+                    )
                 }
             }
 

@@ -39,7 +39,7 @@ class AppUsageTest {
                 installedTime = 1,
                 lastUsedTime = 1,
                 enableUninstall = true
-            ),
+            )
         )
 
         // Check output
@@ -71,7 +71,7 @@ class AppUsageTest {
                 installedTime = 1,
                 lastUsedTime = 1,
                 enableUninstall = true
-            ),
+            )
         )
         appUsageList.equalsWithoutIcon(expectedAppUsageList)
     }

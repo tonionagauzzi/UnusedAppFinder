@@ -22,7 +22,7 @@ fun AppUsageTextGroup(
     modifier: Modifier,
     name: String,
     lastUsedTime: Long,
-    installedTime: Long
+    installedTime: Long,
 ) {
     Text(
         modifier = modifier
@@ -31,7 +31,7 @@ fun AppUsageTextGroup(
         fontSize = 16.sp,
         maxLines = 1,
         text = name,
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
     Text(
         modifier = modifier
@@ -40,14 +40,14 @@ fun AppUsageTextGroup(
         fontSize = 12.sp,
         maxLines = 1,
         text = stringResource(R.string.label_last_used_date) + stringResource(R.string.label_separator),
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
     Text(
         modifier = modifier.width(128.dp),
         fontSize = 12.sp,
         maxLines = 1,
         text = Instant.ofEpochMilli(lastUsedTime).getString("yyyy/MM/dd"),
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
     Text(
         modifier = modifier
@@ -56,7 +56,7 @@ fun AppUsageTextGroup(
         fontSize = 12.sp,
         maxLines = 1,
         text = stringResource(R.string.label_installed_date) + stringResource(R.string.label_separator),
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
     Text(
         modifier = modifier
@@ -65,7 +65,7 @@ fun AppUsageTextGroup(
         fontSize = 12.sp,
         maxLines = 1,
         text = Instant.ofEpochMilli(installedTime).getString("yyyy/MM/dd"),
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
 }
 

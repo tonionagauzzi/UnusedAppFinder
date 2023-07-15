@@ -5,7 +5,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.result.AppUsageResult
 import javax.inject.Inject
 
 class GetAppUsages @Inject constructor(
-    private val repository: AppUsageRepository
+    private val repository: AppUsageRepository,
 ) {
     operator fun invoke(): AppUsageResult {
         return try {

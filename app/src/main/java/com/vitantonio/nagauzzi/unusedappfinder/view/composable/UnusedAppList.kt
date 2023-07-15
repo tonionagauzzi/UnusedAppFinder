@@ -5,9 +5,16 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -31,10 +38,12 @@ fun UnusedAppList(
         modifier = modifier,
         appUsageList = showingList,
         onColumnClicked = { packageName ->
-            context.startActivity(Intent().apply {
-                action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                data = Uri.parse("package:${packageName}")
-            })
+            context.startActivity(
+                Intent().apply {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.parse("package:$packageName")
+                }
+            )
         }
     )
 }
@@ -43,26 +52,26 @@ fun UnusedAppList(
 fun UnusedAppStatelessList(
     modifier: Modifier = Modifier,
     appUsageList: List<AppUsage>,
-    onColumnClicked: (packageName: String) -> Unit
+    onColumnClicked: (packageName: String) -> Unit,
 ) {
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Adaptive(minSize = 128.dp),
-        contentPadding = PaddingValues(4.dp),
+        contentPadding = PaddingValues(4.dp)
     ) {
         items(appUsageList) { appUsage ->
             Column(
                 modifier = modifier.clickable {
                     onColumnClicked(appUsage.packageName)
                 },
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
                     modifier = modifier
                         .size(60.dp)
                         .padding(top = 8.dp, bottom = 4.dp),
                     contentDescription = appUsage.name,
-                    painter = rememberDrawablePainter(appUsage.icon),
+                    painter = rememberDrawablePainter(appUsage.icon)
                 )
                 AppUsageTextGroup(
                     modifier = modifier,
@@ -125,7 +134,7 @@ fun PreviewUnusedAppList() {
                 installedTime = 345600000,
                 lastUsedTime = 345600000,
                 enableUninstall = true
-            ),
+            )
         ),
         onColumnClicked = {}
     )

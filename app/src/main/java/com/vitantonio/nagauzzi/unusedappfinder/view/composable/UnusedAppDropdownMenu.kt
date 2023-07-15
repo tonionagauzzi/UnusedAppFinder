@@ -19,7 +19,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.R
 fun UnusedAppDropdownMenu(
     modifier: Modifier,
     isMenuExpanded: Boolean,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     val context = LocalContext.current
     DropdownMenu(
@@ -30,11 +30,13 @@ fun UnusedAppDropdownMenu(
         properties = PopupProperties(focusable = true),
         content = {
             DropdownMenuItem(onClick = {
-                context.startActivity(Intent().apply {
-                    action = Intent.ACTION_VIEW
-                    data = Uri.parse("market://details?id=${context.packageName}")
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                })
+                context.startActivity(
+                    Intent().apply {
+                        action = Intent.ACTION_VIEW
+                        data = Uri.parse("market://details?id=${context.packageName}")
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                )
                 onDismiss()
             }) {
                 Text(text = stringResource(id = R.string.label_about))

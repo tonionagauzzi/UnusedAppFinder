@@ -9,7 +9,7 @@ interface PackageNameRepository {
 }
 
 class PackageNameRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
 ) : PackageNameRepository {
 
     override fun get(): String = context.packageName
