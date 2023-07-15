@@ -16,6 +16,7 @@ buildscript {
 
 plugins {
     alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ktlint.plugin) apply false
 }
 
 allprojects {

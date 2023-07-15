@@ -15,6 +15,8 @@ hilt = "2.45"
 junit4 = "4.13.2"
 kotlin = "1.8.10"
 kotlinxCoroutines = "1.6.4"
+ktlint = "0.50.0"
+ktlint-plugin = "11.5.0"
 
 [libraries]
 accompanist-drawablepainter = { group = "com.google.accompanist", name = "accompanist-drawablepainter", version.ref = "accompanist" }
@@ -40,9 +42,12 @@ junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
+ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlint" }
 
 [plugins]
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ktlint-plugin = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-plugin" }
 
 [bundles]
 accompanist = ["accompanist-drawablepainter"]

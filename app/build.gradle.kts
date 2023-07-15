@@ -4,6 +4,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("kotlin-android")
     id("kotlin-kapt")
+    alias(libs.plugins.ktlint.plugin)
 }
 
 @Suppress("UnstableApiUsage")
