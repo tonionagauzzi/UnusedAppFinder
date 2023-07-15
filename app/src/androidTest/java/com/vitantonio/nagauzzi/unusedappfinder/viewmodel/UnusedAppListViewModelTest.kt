@@ -6,14 +6,13 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getFakeIcon
 import com.vitantonio.nagauzzi.unusedappfinder.model.equalsWithoutIcon
+import com.vitantonio.nagauzzi.unusedappfinder.repository.ErrorAppUsageRepository
+import com.vitantonio.nagauzzi.unusedappfinder.repository.MockAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.MockPackageNameRepository
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
+import com.vitantonio.nagauzzi.unusedappfinder.repository.ProhibitedAppUsageRepository
+import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -25,40 +24,14 @@ class UnusedAppListViewModelTest {
     @Test
     fun test_sort_showing_list() = runTest {
         // Initialize
-        val viewModel = UnusedAppListViewModel(MockPackageNameRepository())
+        val viewModel = UnusedAppListViewModel(
+            GetAppUsages(MockAppUsageRepository()),
+            MockPackageNameRepository()
+        )
         val context: Context = ApplicationProvider.getApplicationContext()
 
         // Input
-        val appUsageList = listOf(
-            AppUsage(
-                name = "name0",
-                packageName = "packageName0",
-                activityName = "activityName0",
-                icon = context.getFakeIcon(),
-                installedTime = 0,
-                lastUsedTime = 0,
-                enableUninstall = true
-            ),
-            AppUsage(
-                name = "name1",
-                packageName = "packageName1",
-                activityName = "activityName1",
-                icon = context.getFakeIcon(),
-                installedTime = 2,
-                lastUsedTime = 2,
-                enableUninstall = true
-            ),
-            AppUsage(
-                name = "name2",
-                packageName = "packageName2",
-                activityName = "activityName2",
-                icon = context.getFakeIcon(),
-                installedTime = 1,
-                lastUsedTime = 1,
-                enableUninstall = true
-            ),
-        )
-        AppUsageState.update(to = Success(appUsageList))
+        viewModel.reload()
 
         // Check output
         val expectedAppUsageList = listOf(
@@ -98,10 +71,13 @@ class UnusedAppListViewModelTest {
     @Test
     fun test_request_permissions() = runTest {
         // Initialize
-        val viewModel = UnusedAppListViewModel(MockPackageNameRepository())
+        val viewModel = UnusedAppListViewModel(
+            GetAppUsages(ProhibitedAppUsageRepository()),
+            MockPackageNameRepository()
+        )
 
         // Input
-        AppUsageState.update(to = Error(SecurityException("Dummy security exception")))
+        viewModel.reload()
 
         // Check output
         val isRequestedPermissions = viewModel.requestingPermission.first()
@@ -111,18 +87,16 @@ class UnusedAppListViewModelTest {
     @Test
     fun test_other_errors() = runTest {
         // Initialize
-        val viewModel = UnusedAppListViewModel(MockPackageNameRepository())
+        val viewModel = UnusedAppListViewModel(
+            GetAppUsages(ErrorAppUsageRepository()),
+            MockPackageNameRepository()
+        )
 
         // Input
-        AppUsageState.update(to = Error(IllegalArgumentException("Dummy illegal argument exception")))
+        viewModel.reload()
 
         // Check output
-        val job = launch {
-            viewModel.requestingPermission.collect {
-                fail("This flow shouldn't be collected.")
-            }
-        }
-        delay(100)
-        job.cancel()
+        val isRequestedPermissions = viewModel.requestingPermission.first()
+        assertFalse(isRequestedPermissions)
     }
 }

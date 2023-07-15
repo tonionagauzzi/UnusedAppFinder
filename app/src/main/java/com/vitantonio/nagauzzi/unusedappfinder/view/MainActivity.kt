@@ -3,6 +3,7 @@ package com.vitantonio.nagauzzi.unusedappfinder.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,23 +15,17 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppRoot
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppTopBar
 import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
+import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    @Inject lateinit var getAppUsages: GetAppUsages
+    private val unusedAppListViewModel: UnusedAppListViewModel by viewModels()
 
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +45,8 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                 ) { contentPadding ->
-                    val coroutineScope = rememberCoroutineScope()
                     val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh = {
-                        coroutineScope.launch {
-                            getAppUsages()
-                        }
+                        unusedAppListViewModel.reload()
                     })
                     Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
                         UnusedAppRoot(
@@ -75,9 +67,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        CoroutineScope(Dispatchers.Default).launch {
-            getAppUsages()
-        }
+        unusedAppListViewModel.reload()
     }
 }

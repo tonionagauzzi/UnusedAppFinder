@@ -26,13 +26,28 @@ class MockAppUsageRepository : AppUsageRepository {
                 installedTime = 2,
                 lastUsedTime = 2,
                 enableUninstall = true
+            ),
+            AppUsage(
+                name = "name2",
+                packageName = "packageName2",
+                activityName = "activityName2",
+                icon = context.getFakeIcon(),
+                installedTime = 1,
+                lastUsedTime = 1,
+                enableUninstall = true
             )
         )
     }
 }
 
-class ErrorAppUsageRepository : AppUsageRepository {
+class ProhibitedAppUsageRepository : AppUsageRepository {
     override fun get(): List<AppUsage> {
         throw SecurityException("Dummy security exception")
+    }
+}
+
+class ErrorAppUsageRepository : AppUsageRepository {
+    override fun get(): List<AppUsage> {
+        throw IllegalStateException("Dummy illegal state exception")
     }
 }

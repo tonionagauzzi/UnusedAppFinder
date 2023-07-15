@@ -1,20 +1,18 @@
 package com.vitantonio.nagauzzi.unusedappfinder.usecase
 
 import com.vitantonio.nagauzzi.unusedappfinder.repository.AppUsageRepository
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
+import com.vitantonio.nagauzzi.unusedappfinder.result.AppUsageResult
 import javax.inject.Inject
 
 class GetAppUsages @Inject constructor(
     private val repository: AppUsageRepository
 ) {
-    suspend operator fun invoke() {
-        try {
+    operator fun invoke(): AppUsageResult {
+        return try {
             val appUsageList = repository.get()
-            AppUsageState.update(Success(appUsageList))
-        } catch (e: SecurityException) {
-            AppUsageState.update(Error(e))
+            AppUsageResult.Success(appUsageList)
+        } catch (e: Exception) {
+            AppUsageResult.Error(e)
         }
     }
 }

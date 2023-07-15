@@ -3,9 +3,7 @@ package com.vitantonio.nagauzzi.unusedappfinder.usecase
 import com.vitantonio.nagauzzi.unusedappfinder.model.equalsWithoutIcon
 import com.vitantonio.nagauzzi.unusedappfinder.repository.ErrorAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.MockAppUsageRepository
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Error
-import com.vitantonio.nagauzzi.unusedappfinder.state.AppUsageState.Success
+import com.vitantonio.nagauzzi.unusedappfinder.result.AppUsageResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
@@ -19,11 +17,11 @@ class GetAppUsagesTest {
         val getAppUsages = GetAppUsages(MockAppUsageRepository())
 
         // Input
-        getAppUsages()
+        val result = getAppUsages()
 
         // Check output
-        val result = AppUsageState.now.value as Success
-        assertTrue(result.list.equalsWithoutIcon(MockAppUsageRepository().get()))
+        val success = result as AppUsageResult.Success
+        assertTrue(success.list.equalsWithoutIcon(MockAppUsageRepository().get()))
     }
 
     @Test
@@ -32,9 +30,9 @@ class GetAppUsagesTest {
         val getAppUsages = GetAppUsages(ErrorAppUsageRepository())
 
         // Input
-        getAppUsages()
+        val result = getAppUsages()
 
         // Check output
-        AppUsageState.now.value as Error
+        assertTrue(result is AppUsageResult.Error)
     }
 }
