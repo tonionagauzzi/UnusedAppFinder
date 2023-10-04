@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vitantonio.nagauzzi.unusedappfinder.R
+import com.vitantonio.nagauzzi.unusedappfinder.extension.asEpochMilli
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
-import java.time.Instant
 
 @Composable
 fun AppUsageTextGroup(
@@ -46,7 +46,7 @@ fun AppUsageTextGroup(
         modifier = modifier.width(128.dp),
         fontSize = 12.sp,
         maxLines = 1,
-        text = Instant.ofEpochMilli(lastUsedTime).getString("yyyy/MM/dd"),
+        text = lastUsedTime.asEpochMilli().getString("yyyy/MM/dd"),
         textAlign = TextAlign.Center
     )
     Text(
@@ -64,7 +64,7 @@ fun AppUsageTextGroup(
             .padding(bottom = 12.dp),
         fontSize = 12.sp,
         maxLines = 1,
-        text = Instant.ofEpochMilli(installedTime).getString("yyyy/MM/dd"),
+        text = installedTime.asEpochMilli().getString("yyyy/MM/dd"),
         textAlign = TextAlign.Center
     )
 }

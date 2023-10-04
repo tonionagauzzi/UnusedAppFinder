@@ -20,7 +20,7 @@ class AppUsageTextGroupTest {
                 modifier = Modifier,
                 name = appName,
                 lastUsedTime = 1560000000000L, // 2019/06/08 22:20:00 (JST)
-                installedTime = 1550000000000L, // 2019/02/13 04:33:20 (JST)
+                installedTime = 1550000000000L // 2019/02/13 04:33:20 (JST)
             )
         }
 

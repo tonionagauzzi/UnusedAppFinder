@@ -9,3 +9,8 @@ fun Context.getFakeIcon(): Drawable = AppCompatResources.getDrawable(
     this,
     R.drawable.ic_launcher_foreground
 )!!
+
+fun Context.getFakeIcon2(): Drawable = AppCompatResources.getDrawable(
+    this,
+    R.drawable.ic_launcher_background
+)!!
