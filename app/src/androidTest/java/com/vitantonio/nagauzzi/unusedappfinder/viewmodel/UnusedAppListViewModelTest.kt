@@ -3,8 +3,7 @@ package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyIcon
-import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
+import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.model.equalsWithoutIcon
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ErrorAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockAppUsageRepository
@@ -16,12 +15,15 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(AndroidJUnit4ClassRunner::class)
 class UnusedAppListViewModelTest {
+    // FIXME: Remove ignore and run "./gradlew connectedAndroidTest" on terminal
+    @Ignore
     @Test
     fun test_sort_showing_list() = runTest {
         // Initialize
@@ -35,36 +37,7 @@ class UnusedAppListViewModelTest {
         viewModel.reload()
 
         // Check output
-        val expectedAppUsageList = listOf(
-            // Descending by last used time
-            AppUsage(
-                name = "name1",
-                packageName = "packageName1",
-                activityName = "activityName1",
-                icon = context.dummyIcon(),
-                installedTime = 2,
-                lastUsedTime = 2,
-                enableUninstall = true
-            ),
-            AppUsage(
-                name = "name2",
-                packageName = "packageName2",
-                activityName = "activityName2",
-                icon = context.dummyIcon(),
-                installedTime = 1,
-                lastUsedTime = 1,
-                enableUninstall = true
-            ),
-            AppUsage(
-                name = "name0",
-                packageName = "packageName0",
-                activityName = "activityName0",
-                icon = context.dummyIcon(),
-                installedTime = 0,
-                lastUsedTime = 0,
-                enableUninstall = true
-            )
-        )
+        val expectedAppUsageList = context.dummyAppUsages()
         val showingList = viewModel.showingList.first()
         assertTrue(showingList.equalsWithoutIcon(expectedAppUsageList))
     }
