@@ -26,7 +26,7 @@ fun HowToPermitAppUsage(
     context: Context = LocalContext.current,
     onClick: () -> Unit = {
         context.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-    }
+    },
 ) {
     Column(
         modifier = modifier.padding(12.dp),

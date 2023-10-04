@@ -7,12 +7,10 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.printToLog
 import androidx.test.core.app.ApplicationProvider
 import com.vitantonio.nagauzzi.unusedappfinder.extension.asEpochMilli
+import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
-import com.vitantonio.nagauzzi.unusedappfinder.model.mock.mockAppUsages
 import org.junit.Rule
 import org.junit.Test
 
@@ -26,7 +24,7 @@ class UnusedAppListTest {
         val context: Context = ApplicationProvider.getApplicationContext()
 
         // Input
-        val appUsageList = context.mockAppUsages()
+        val appUsageList = context.dummyAppUsages()
         composeTestRule.setContent {
             UnusedAppStatelessList(
                 modifier = Modifier,
@@ -34,9 +32,6 @@ class UnusedAppListTest {
                 onColumnClicked = {}
             )
         }
-
-        // Log for debugging
-        composeTestRule.onRoot().printToLog("UnusedAppFinder")
 
         // Check Output
         appUsageList.forEach {

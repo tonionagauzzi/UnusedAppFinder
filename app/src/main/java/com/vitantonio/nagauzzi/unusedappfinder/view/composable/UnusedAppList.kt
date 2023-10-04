@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
-import com.vitantonio.nagauzzi.unusedappfinder.model.mock.mockAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 
 @Composable
@@ -89,7 +89,7 @@ fun UnusedAppStatelessList(
 fun PreviewUnusedAppList() {
     val context = LocalContext.current
     UnusedAppStatelessList(
-        appUsageList = context.mockAppUsages(),
+        appUsageList = context.dummyAppUsages(),
         onColumnClicked = {}
     )
 }

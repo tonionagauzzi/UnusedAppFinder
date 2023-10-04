@@ -1,14 +1,15 @@
-package com.vitantonio.nagauzzi.unusedappfinder.repository
+package com.vitantonio.nagauzzi.unusedappfinder.repository.mock
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
+import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
-import com.vitantonio.nagauzzi.unusedappfinder.model.mock.mockAppUsages
+import com.vitantonio.nagauzzi.unusedappfinder.repository.AppUsageRepository
 
 class MockAppUsageRepository : AppUsageRepository {
     override fun get(): List<AppUsage> {
         val context: Context = ApplicationProvider.getApplicationContext()
-        return context.mockAppUsages()
+        return context.dummyAppUsages()
     }
 }
 

@@ -2,8 +2,8 @@ package com.vitantonio.nagauzzi.unusedappfinder.model
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.vitantonio.nagauzzi.unusedappfinder.extension.getFakeIcon2
-import com.vitantonio.nagauzzi.unusedappfinder.model.mock.mockAppUsages
+import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
+import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyIcon2
 import org.junit.Test
 
 class AppUsageTest {
@@ -13,11 +13,11 @@ class AppUsageTest {
         val context: Context = ApplicationProvider.getApplicationContext()
 
         // Input
-        val appUsageList = context.mockAppUsages()
+        val appUsageList = context.dummyAppUsages()
 
         // Check output
-        val expectedAppUsageList = context.mockAppUsages().map {
-            it.copy(icon = context.getFakeIcon2())
+        val expectedAppUsageList = context.dummyAppUsages().map {
+            it.copy(icon = context.dummyIcon2())
         }
         appUsageList.equalsWithoutIcon(expectedAppUsageList)
     }
