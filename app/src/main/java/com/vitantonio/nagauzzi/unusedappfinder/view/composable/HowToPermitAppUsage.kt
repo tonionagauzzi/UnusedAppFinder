@@ -1,5 +1,6 @@
 package com.vitantonio.nagauzzi.unusedappfinder.view.composable
 
+import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.compose.foundation.layout.Arrangement
@@ -22,9 +23,11 @@ import com.vitantonio.nagauzzi.unusedappfinder.R
 @Composable
 fun HowToPermitAppUsage(
     modifier: Modifier = Modifier,
+    context: Context = LocalContext.current,
+    onClick: () -> Unit = {
+        context.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+    }
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = modifier.padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -38,9 +41,7 @@ fun HowToPermitAppUsage(
                 backgroundColor = MaterialTheme.colors.primary,
                 disabledBackgroundColor = MaterialTheme.colors.primaryVariant
             ),
-            onClick = {
-                context.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-            }
+            onClick = onClick
         ) {
             Text(
                 text = stringResource(id = R.string.button_permit_app_usage),
