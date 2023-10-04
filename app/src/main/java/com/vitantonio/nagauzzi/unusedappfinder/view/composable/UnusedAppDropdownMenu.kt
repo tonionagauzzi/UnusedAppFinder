@@ -1,5 +1,6 @@
 package com.vitantonio.nagauzzi.unusedappfinder.view.composable
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.material.DropdownMenu
@@ -17,11 +18,23 @@ import com.vitantonio.nagauzzi.unusedappfinder.R
 
 @Composable
 fun UnusedAppDropdownMenu(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
+    context: Context = LocalContext.current,
     isMenuExpanded: Boolean,
+    onClickAboutThisApp: () -> Unit = {
+        context.startActivity(
+            Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = Uri.parse("market://details?id=${context.packageName}")
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+        )
+    },
+    onClickOpenSourceLicenses: () -> Unit = {
+        context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+    },
     onDismiss: () -> Unit,
 ) {
-    val context = LocalContext.current
     DropdownMenu(
         expanded = isMenuExpanded,
         onDismissRequest = onDismiss,
@@ -30,19 +43,13 @@ fun UnusedAppDropdownMenu(
         properties = PopupProperties(focusable = true),
         content = {
             DropdownMenuItem(onClick = {
-                context.startActivity(
-                    Intent().apply {
-                        action = Intent.ACTION_VIEW
-                        data = Uri.parse("market://details?id=${context.packageName}")
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    }
-                )
+                onClickAboutThisApp()
                 onDismiss()
             }) {
                 Text(text = stringResource(id = R.string.label_about))
             }
             DropdownMenuItem(onClick = {
-                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+                onClickOpenSourceLicenses()
                 onDismiss()
             }) {
                 Text(text = stringResource(id = R.string.label_oss_license))
