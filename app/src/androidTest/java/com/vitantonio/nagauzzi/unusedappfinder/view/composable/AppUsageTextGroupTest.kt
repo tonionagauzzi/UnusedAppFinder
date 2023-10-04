@@ -19,13 +19,14 @@ class AppUsageTextGroupTest {
             AppUsageTextGroup(
                 modifier = Modifier,
                 name = appName,
-                lastUsedTime = 1560000000L, // 2019/06/08 22:20:00 (JST)
-                installedTime = 1550000000L, // 2019/02/13 04:33:20 (JST)
+                lastUsedTime = 1560000000000L, // 2019/06/08 22:20:00 (JST)
+                installedTime = 1550000000000L, // 2019/02/13 04:33:20 (JST)
             )
         }
 
         // Check Output
         composeTestRule.onNodeWithText(appName).assertIsDisplayed()
-        // TODO: Add tests for lastUsedTime and installedTime.
+        composeTestRule.onNodeWithText("2019/06/08").assertIsDisplayed()
+        composeTestRule.onNodeWithText("2019/02/13").assertIsDisplayed()
     }
 }
