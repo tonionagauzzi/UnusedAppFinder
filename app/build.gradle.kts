@@ -10,32 +10,38 @@ plugins {
 @Suppress("UnstableApiUsage")
 android {
     compileSdk = 34
-    defaultConfig {
-        applicationId = "com.vitantonio.nagauzzi.unusedappfinder"
-        minSdk = 22
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    buildFeatures {
+        compose = true
+    }
+    buildTypes {
+        named("release") {
+            isMinifyEnabled = false
+            setProguardFiles(listOf(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"))
+        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_17)
         targetCompatibility(JavaVersion.VERSION_17)
         isCoreLibraryDesugaringEnabled = true
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-    buildFeatures {
-        compose = true
-    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
-    buildTypes {
-        named("release") {
-            isMinifyEnabled = false
-            setProguardFiles(listOf(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"))
+    defaultConfig {
+        applicationId = "com.vitantonio.nagauzzi.unusedappfinder"
+        minSdk = 22
+        // FIXME: failed to configure test_UnusedAppStatelessList: Package targetSdkVersion=34 > maxSdkVersion=33
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
         }
     }
 }
@@ -63,7 +69,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation(libs.androidx.compose.ui.test.manifest)
 }
 android {
     namespace = "com.vitantonio.nagauzzi.unusedappfinder"

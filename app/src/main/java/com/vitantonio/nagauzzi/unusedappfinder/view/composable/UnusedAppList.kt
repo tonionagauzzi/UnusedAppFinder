@@ -66,13 +66,15 @@ fun UnusedAppStatelessList(
                 },
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    modifier = modifier
-                        .size(60.dp)
-                        .padding(top = 8.dp, bottom = 4.dp),
-                    contentDescription = appUsage.name,
-                    painter = rememberDrawablePainter(appUsage.icon)
-                )
+                if (appUsage.icon != null) {
+                    Image(
+                        modifier = modifier
+                            .size(60.dp)
+                            .padding(top = 8.dp, bottom = 4.dp),
+                        contentDescription = appUsage.name,
+                        painter = rememberDrawablePainter(appUsage.icon)
+                    )
+                }
                 AppUsageTextGroup(
                     modifier = modifier,
                     name = appUsage.name,
@@ -89,7 +91,7 @@ fun UnusedAppStatelessList(
 fun PreviewUnusedAppList() {
     val context = LocalContext.current
     UnusedAppStatelessList(
-        appUsageList = context.dummyAppUsages(),
+        appUsageList = context.dummyAppUsages(useDummyIcon = true),
         onColumnClicked = {}
     )
 }

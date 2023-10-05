@@ -5,12 +5,11 @@ import androidx.test.core.app.ApplicationProvider
 import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.repository.AppUsageRepository
-import io.mockk.mockk
 
 class MockAppUsageRepository : AppUsageRepository {
     override fun get(): List<AppUsage> {
         val context: Context = ApplicationProvider.getApplicationContext()
-        return context.dummyAppUsages(dummyIcon = mockk())
+        return context.dummyAppUsages(useDummyIcon = false)
     }
 }
 

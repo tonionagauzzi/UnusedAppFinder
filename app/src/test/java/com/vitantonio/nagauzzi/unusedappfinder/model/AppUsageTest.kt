@@ -16,11 +16,11 @@ class AppUsageTest {
         val context: Context = ApplicationProvider.getApplicationContext()
 
         // Input
-        val appUsageList = context.dummyAppUsages(dummyIcon = mockk())
+        val appUsageList = context.dummyAppUsages(useDummyIcon = false)
 
         // Check output
-        val expectedAppUsageList = context.dummyAppUsages(dummyIcon = mockk()).map {
-            it.copy(icon = mockk("another icon"))
+        val expectedAppUsageList = context.dummyAppUsages(useDummyIcon = false).map {
+            it.copy(icon = mockk())
         }
         appUsageList.equalsWithoutIcon(expectedAppUsageList)
     }

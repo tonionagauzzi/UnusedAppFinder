@@ -1,4 +1,4 @@
-package com.vitantonio.nagauzzi.unusedappfinder.view.composable
+package com.vitantonio.nagauzzi.unusedappfinder.composable
 
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
@@ -7,10 +7,14 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
+import com.vitantonio.nagauzzi.unusedappfinder.view.composable.HowToPermitAppUsage
 import junit.framework.TestCase.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class HowToPermitAppUsageTest {
     @get:Rule
     val composeTestRule = createComposeRule()

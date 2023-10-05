@@ -10,7 +10,6 @@ import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockAppUsageRepos
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockPackageNameRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ProhibitedAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -35,7 +34,7 @@ class UnusedAppListViewModelTest {
         viewModel.reload()
 
         // Check output
-        val expectedAppUsageList = context.dummyAppUsages(dummyIcon = mockk()).sortedByDescending {
+        val expectedAppUsageList = context.dummyAppUsages(useDummyIcon = false).sortedByDescending {
             it.lastUsedTime
         }
         val showingList = viewModel.showingList.first()

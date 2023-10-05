@@ -1,12 +1,16 @@
-package com.vitantonio.nagauzzi.unusedappfinder.view.composable
+package com.vitantonio.nagauzzi.unusedappfinder.composable
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import com.vitantonio.nagauzzi.unusedappfinder.view.composable.AppUsageTextGroup
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class AppUsageTextGroupTest {
     @get:Rule
     val composeTestRule = createComposeRule()
