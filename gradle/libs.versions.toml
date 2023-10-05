@@ -16,7 +16,7 @@ kotlin = "1.9.10"
 kotlinxCoroutines = "1.6.4"
 ktlint = "0.50.0"
 ktlint-plugin = "11.6.0"
-mockk = "1.13.7"
+mockk = "1.13.8"
 robolectric = "4.10.3"
 
 [libraries]
