@@ -25,4 +25,4 @@ jobs:
     - name: Build and test with Gradle
       env:
         TZ: "Asia/Tokyo"
-      run: ./gradlew check
+      run: ./gradlew check validateScreenshotTest

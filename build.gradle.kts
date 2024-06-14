@@ -1,10 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
     dependencies {
         classpath(libs.android.gradlePlugin)
         classpath(libs.gms.play.services.oss.licenses.plugin)
@@ -17,13 +13,6 @@ buildscript {
 plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.ktlint.plugin) apply false
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
 }
 
 tasks.register<Delete>("clean").configure {

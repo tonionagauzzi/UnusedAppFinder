@@ -5,6 +5,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     alias(libs.plugins.ktlint.plugin)
+    alias(libs.plugins.screenshot)
 }
 
 @Suppress("UnstableApiUsage")
@@ -36,6 +37,7 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
     kotlinOptions {
         jvmTarget = "17"
     }
@@ -61,6 +63,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.kotlin.stdlib)
     kapt(libs.hilt.compiler)
+    screenshotTestImplementation(libs.androidx.compose.ui.tooling)
     testImplementation(libs.androidx.compose.ui.test.junit4)
     testImplementation(libs.junit4)
     testImplementation(libs.kotlinx.coroutines.test)
