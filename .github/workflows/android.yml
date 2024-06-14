@@ -26,3 +26,14 @@ jobs:
       env:
         TZ: "Asia/Tokyo"
       run: ./gradlew check validateScreenshotTest
+
+    - name: Save failed results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: Result
+        path: |
+          ./**/build/reports/lint-results-*.html
+          ./**/build/reports/screenshotTest
+          ./**/build/reports/tests
+        retention-days: 30
