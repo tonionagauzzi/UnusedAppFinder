@@ -3,9 +3,9 @@ package com.vitantonio.nagauzzi.unusedappfinder.view.composable
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -42,18 +42,24 @@ fun UnusedAppDropdownMenu(
         offset = DpOffset(0.dp, 0.dp),
         properties = PopupProperties(focusable = true),
         content = {
-            DropdownMenuItem(onClick = {
-                onClickAboutThisApp()
-                onDismiss()
-            }) {
-                Text(text = stringResource(id = R.string.label_about))
-            }
-            DropdownMenuItem(onClick = {
-                onClickOpenSourceLicenses()
-                onDismiss()
-            }) {
-                Text(text = stringResource(id = R.string.label_oss_license))
-            }
+            DropdownMenuItem(
+                onClick = {
+                    onClickAboutThisApp()
+                    onDismiss()
+                },
+                text = {
+                    Text(text = stringResource(id = R.string.label_about))
+                }
+            )
+            DropdownMenuItem(
+                onClick = {
+                    onClickOpenSourceLicenses()
+                    onDismiss()
+                },
+                text = {
+                    Text(text = stringResource(id = R.string.label_oss_license))
+                }
+            )
         }
     )
 }
