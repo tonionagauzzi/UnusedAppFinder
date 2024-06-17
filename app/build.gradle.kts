@@ -31,8 +31,7 @@ android {
     defaultConfig {
         applicationId = "com.vitantonio.nagauzzi.unusedappfinder"
         minSdk = 22
-        // FIXME: failed to configure test_UnusedAppStatelessList: Package targetSdkVersion=34 > maxSdkVersion=33
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
