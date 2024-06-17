@@ -1,11 +1,17 @@
 package com.vitantonio.nagauzzi.unusedappfinder.composable
 
+import android.content.Context
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppDropdownMenu
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricTestRunner::class)
 class UnusedAppDropdownMenuTest {
@@ -14,6 +20,9 @@ class UnusedAppDropdownMenuTest {
 
     @Test
     fun test_UnusedAppDropdownMenu() {
+        // Initialize
+        val context: Context = RuntimeEnvironment.getApplication()
+
         // Input
         var clickAboutThisAppCount = 0
         var clickOpenSourceLicenses = 0
@@ -27,8 +36,10 @@ class UnusedAppDropdownMenuTest {
             )
         }
 
-        // Log for debugging
-        // FIXME: DropdownMenu cannot be tested because even the following log output fails.
-        // composeTestRule.onRoot().printToLog("UnusedAppFinder")
+        // Check Output
+        composeTestRule.onNodeWithText(context.getString(R.string.label_about)).performClick()
+        assertEquals(1, clickAboutThisAppCount)
+        composeTestRule.onNodeWithText(context.getString(R.string.label_oss_license)).performClick()
+        assertEquals(1, clickOpenSourceLicenses)
     }
 }
