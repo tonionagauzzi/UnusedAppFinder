@@ -13,6 +13,7 @@ plugins {
 android {
     compileSdk = 34
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     buildTypes {
