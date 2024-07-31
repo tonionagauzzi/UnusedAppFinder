@@ -1,0 +1,31 @@
+name: Update Screenshot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update_screenshot:
+    name: Update Screenshot
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Run Update Screenshot
+        run: ./gradlew updateScreenshotTest
+
+      - name: Push Screenshot
+        run: |
+          git fetch origin $(git branch --show-current)
+          git checkout $(git branch --show-current)
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "Update Screenshot"
+          git push origin $(git branch --show-current)
