@@ -3,8 +3,8 @@ plugins {
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.dagger.hilt.android")
     id("kotlin-android")
-    id("kotlin-kapt")
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp.gradle.plugin)
     alias(libs.plugins.ktlint.plugin)
     alias(libs.plugins.screenshot)
 }
@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.gms.play.services.oss.licenses)
     implementation(libs.hilt.android)
     implementation(libs.kotlin.stdlib)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     screenshotTestImplementation(libs.androidx.compose.ui.tooling)
     testImplementation(libs.androidx.compose.ui.test.junit4)
     testImplementation(libs.junit4)
@@ -77,8 +77,4 @@ dependencies {
 }
 android {
     namespace = "com.vitantonio.nagauzzi.unusedappfinder"
-}
-
-kapt {
-    correctErrorTypes = true
 }
