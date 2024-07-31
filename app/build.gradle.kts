@@ -4,6 +4,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("kotlin-android")
     id("kotlin-kapt")
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ktlint.plugin)
     alias(libs.plugins.screenshot)
 }
