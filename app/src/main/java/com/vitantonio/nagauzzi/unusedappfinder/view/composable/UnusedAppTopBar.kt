@@ -1,12 +1,13 @@
 package com.vitantonio.nagauzzi.unusedappfinder.view.composable
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UnusedAppTopBar(
     modifier: Modifier = Modifier,

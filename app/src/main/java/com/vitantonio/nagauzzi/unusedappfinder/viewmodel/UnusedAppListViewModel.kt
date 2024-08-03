@@ -1,7 +1,6 @@
 package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.repository.PackageNameRepository
 import com.vitantonio.nagauzzi.unusedappfinder.result.AppUsageResult
@@ -9,7 +8,6 @@ import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,27 +22,23 @@ class UnusedAppListViewModel @Inject constructor(
     private val mutableRequestingPermission = MutableStateFlow<Boolean>(false)
     val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
 
-    fun reload() {
+    suspend fun reload() {
         when (val result = getAppUsages()) {
             is AppUsageResult.Success -> {
-                viewModelScope.launch {
-                    mutableRequestingPermission.emit(false)
-                    mutableShowingList.emit(
-                        result.list.filter {
-                            it.enableUninstall && it.packageName != packageNameRepository.get()
-                            true
-                        }.sortedByDescending {
-                            if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
-                        }
-                    )
-                }
+                mutableRequestingPermission.emit(false)
+                mutableShowingList.emit(
+                    result.list.filter {
+                        it.enableUninstall && it.packageName != packageNameRepository.get()
+                        true
+                    }.sortedByDescending {
+                        if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
+                    }
+                )
             }
 
             is AppUsageResult.Error -> {
                 if (result.exception is SecurityException) {
-                    viewModelScope.launch {
-                        mutableRequestingPermission.emit(true)
-                    }
+                    mutableRequestingPermission.emit(true)
                 }
             }
         }

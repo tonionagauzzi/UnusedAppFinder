@@ -6,10 +6,9 @@ import android.provider.Settings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,10 +37,7 @@ fun HowToPermitAppUsage(
             text = stringResource(id = R.string.description_how_to_permit_app_usage, stringResource(R.string.app_name_short))
         )
         Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = MaterialTheme.colors.primary,
-                disabledBackgroundColor = MaterialTheme.colors.primaryVariant
-            ),
+            colors = ButtonDefaults.buttonColors(),
             onClick = onClick
         ) {
             Text(
