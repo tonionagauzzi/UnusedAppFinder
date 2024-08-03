@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.vitantonio.nagauzzi.unusedappfinder.R
+import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 
 @Composable
 fun UnusedAppTopBar(
@@ -47,5 +48,7 @@ fun UnusedAppTopBar(
 @Preview(showBackground = true)
 @Composable
 fun PreviewUnusedAppTopBar() {
-    UnusedAppTopBar()
+    UnusedAppListTheme {
+        UnusedAppTopBar()
+    }
 }

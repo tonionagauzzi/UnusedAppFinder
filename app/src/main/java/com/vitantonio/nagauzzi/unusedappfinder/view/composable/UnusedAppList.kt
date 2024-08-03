@@ -24,6 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
+import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 
 @Composable
@@ -90,8 +91,10 @@ fun UnusedAppStatelessList(
 @Composable
 fun PreviewUnusedAppList() {
     val context = LocalContext.current
-    UnusedAppStatelessList(
-        appUsageList = context.dummyAppUsages(useDummyIcon = true),
-        onColumnClicked = {}
-    )
+    UnusedAppListTheme {
+        UnusedAppStatelessList(
+            appUsageList = context.dummyAppUsages(useDummyIcon = true),
+            onColumnClicked = {}
+        )
+    }
 }

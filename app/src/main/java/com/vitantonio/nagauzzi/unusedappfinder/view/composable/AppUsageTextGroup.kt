@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.extension.asEpochMilli
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
+import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 
 @Composable
 fun AppUsageTextGroup(
@@ -72,15 +73,17 @@ fun AppUsageTextGroup(
 @Preview(showBackground = true)
 @Composable
 fun PreviewAppUsageTextGroup() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        AppUsageTextGroup(
-            modifier = Modifier,
-            name = "name0",
-            installedTime = 0,
-            lastUsedTime = 0
-        )
+    UnusedAppListTheme {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            AppUsageTextGroup(
+                modifier = Modifier,
+                name = "name0",
+                installedTime = 0,
+                lastUsedTime = 0
+            )
+        }
     }
 }
