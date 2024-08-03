@@ -51,7 +51,7 @@ fun HowToPermitAppUsage(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewHowToPermitAppUsage() {
     HowToPermitAppUsage()

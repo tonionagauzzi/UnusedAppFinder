@@ -69,7 +69,7 @@ fun AppUsageTextGroup(
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewAppUsageTextGroup() {
     Column(

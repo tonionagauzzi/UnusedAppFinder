@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.vitantonio.nagauzzi.unusedappfinder.R
 
 @Composable
@@ -41,4 +42,10 @@ fun UnusedAppTopBar(
             Text(stringResource(id = R.string.app_name))
         }
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewUnusedAppTopBar() {
+    UnusedAppTopBar()
 }

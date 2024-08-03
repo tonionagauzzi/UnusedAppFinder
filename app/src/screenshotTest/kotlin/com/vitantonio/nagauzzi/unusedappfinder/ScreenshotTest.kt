@@ -1,47 +1,26 @@
 package com.vitantonio.nagauzzi.unusedappfinder
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
-import com.vitantonio.nagauzzi.unusedappfinder.view.composable.AppUsageTextGroup
-import com.vitantonio.nagauzzi.unusedappfinder.view.composable.HowToPermitAppUsage
-import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppStatelessList
+import com.vitantonio.nagauzzi.unusedappfinder.view.composable.PreviewAppUsageTextGroup
+import com.vitantonio.nagauzzi.unusedappfinder.view.composable.PreviewHowToPermitAppUsage
+import com.vitantonio.nagauzzi.unusedappfinder.view.composable.PreviewUnusedAppList
+import com.vitantonio.nagauzzi.unusedappfinder.view.composable.PreviewUnusedAppTopBar
 
 class ScreenshotTest {
     @Preview(showBackground = true)
     @Composable
-    fun PreviewHowToPermitAppUsage() {
-        HowToPermitAppUsage()
-    }
+    fun AppUsageTextGroupScreenshotTest() = PreviewAppUsageTextGroup()
 
     @Preview(showBackground = true)
     @Composable
-    fun PreviewAppUsageTextGroup() {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            AppUsageTextGroup(
-                modifier = Modifier,
-                name = "name0",
-                installedTime = 0,
-                lastUsedTime = 0
-            )
-        }
-    }
+    fun HowToPermitAppUsageScreenshotTest() = PreviewHowToPermitAppUsage()
 
-    @Preview
+    @Preview(showBackground = true)
     @Composable
-    fun PreviewUnusedAppList() {
-        val context = LocalContext.current
-        UnusedAppStatelessList(
-            appUsageList = context.dummyAppUsages(useDummyIcon = true),
-            onColumnClicked = {}
-        )
-    }
+    fun UnusedAppListScreenshotTest() = PreviewUnusedAppList()
+
+    @Preview(showBackground = true)
+    @Composable
+    fun UnusedAppTopBarScreenshotTest() = PreviewUnusedAppTopBar()
 }

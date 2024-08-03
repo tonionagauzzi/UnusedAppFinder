@@ -86,7 +86,7 @@ fun UnusedAppStatelessList(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewUnusedAppList() {
     val context = LocalContext.current
