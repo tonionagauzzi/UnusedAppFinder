@@ -19,7 +19,7 @@ ksp = "2.0.10-1.0.24"
 ktlint-plugin = "11.6.1"
 mockk = "1.13.12"
 robolectric = "4.13"
-screenshot = "0.0.1-alpha03"
+screenshot = "0.0.1-alpha04"
 
 [libraries]
 accompanist-drawablepainter = { group = "com.google.accompanist", name = "accompanist-drawablepainter", version.ref = "accompanist" }
