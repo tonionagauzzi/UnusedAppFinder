@@ -1,0 +1,16 @@
+name: Built and test by pull request
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  call_by_pull_request:
+    if: github.event.issue.pull_request != null && github.event.comment.body == 'test'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Called by pull request."
+  build_and_test:
+    needs: [call_by_pull_request]
+    uses: ./.github/workflows/build-and-test.yml
