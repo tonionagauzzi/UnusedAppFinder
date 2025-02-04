@@ -6,11 +6,13 @@ on:
       - created
 
 jobs:
-  call_by_pull_request:
+  trigger:
     if: github.event.issue.pull_request != null && github.event.comment.body == 'test'
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Called by pull request."
-  build_and_test:
-    needs: [call_by_pull_request]
-    uses: ./.github/workflows/build-and-test.yml
+      - name: Trigger Specific Workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: "Build and test"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.issue.pull_request.head.ref }}
