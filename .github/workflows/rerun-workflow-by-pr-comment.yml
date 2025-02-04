@@ -1,0 +1,51 @@
+name: Rerun workflow by PR comment
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  rerun-workflow:
+    if: github.event.issue.pull_request != null && github.event.comment.body == 'test'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write  # ワークフローの再実行に必要
+      pull-requests: write  # コメントの書き込みに必要
+      contents: read
+
+    steps:
+      - name: Find last workflow run
+        id: find_run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=${{ github.event.issue.number }}
+          WORKFLOW_RUNS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?event=pull_request")
+          WORKFLOW_ID=$(echo "$WORKFLOW_RUNS" | jq -r ".workflow_runs[] | select(.head_branch == \"refs/pull/$PR_NUMBER/head\") | .id" | head -n 1)
+
+          if [[ -z "$WORKFLOW_ID" ]]; then
+            echo "No previous workflow found for PR #$PR_NUMBER"
+            exit 1
+          fi
+
+          echo "Workflow ID: $WORKFLOW_ID"
+          echo "workflow_id=$WORKFLOW_ID" >> $GITHUB_ENV
+
+      - name: Rerun last workflow
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+               -H "Accept: application/vnd.github.v3+json" \
+               "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ env.workflow_id }}/rerun"
+
+      - name: Comment on PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=${{ github.event.issue.number }}
+          curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/repos/${{ github.repository }}/issues/$PR_NUMBER/comments \
+               -d '{"body":"🔄 Workflow re-run triggered!"}'
