@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
-import io.mockk.mockk
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -20,7 +19,7 @@ class AppUsageTest {
 
         // Check output
         val expectedAppUsageList = context.dummyAppUsages(useDummyIcon = false).map {
-            it.copy(icon = mockk())
+            it.copy(icon = null)
         }
         appUsageList.equalsWithoutIcon(expectedAppUsageList)
     }
