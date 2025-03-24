@@ -4,7 +4,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vitantonio.nagauzzi.unusedappfinder.model.equalsWithoutIcon
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ErrorAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockAppUsageRepository
-import com.vitantonio.nagauzzi.unusedappfinder.result.AppUsageResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
@@ -23,8 +22,10 @@ class GetAppUsagesTest {
         val result = getAppUsages()
 
         // Check output
-        val success = result as AppUsageResult.Success
-        assertTrue(success.list.equalsWithoutIcon(MockAppUsageRepository().get()))
+        assertTrue(result.isSuccess)
+        result.getOrNull()?.let { appUsageList ->
+            assertTrue(appUsageList.equalsWithoutIcon(MockAppUsageRepository().get()))
+        }
     }
 
     @Test
@@ -36,6 +37,6 @@ class GetAppUsagesTest {
         val result = getAppUsages()
 
         // Check output
-        assertTrue(result is AppUsageResult.Error)
+        assertTrue(result.isFailure)
     }
 }

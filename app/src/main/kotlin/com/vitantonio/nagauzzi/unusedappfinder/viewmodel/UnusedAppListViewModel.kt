@@ -3,7 +3,6 @@ package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 import androidx.lifecycle.ViewModel
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.repository.PackageNameRepository
-import com.vitantonio.nagauzzi.unusedappfinder.result.AppUsageResult
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,23 +22,19 @@ class UnusedAppListViewModel @Inject constructor(
     val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
 
     suspend fun reload() {
-        when (val result = getAppUsages()) {
-            is AppUsageResult.Success -> {
-                mutableRequestingPermission.emit(false)
-                mutableShowingList.emit(
-                    result.list.filter {
-                        it.enableUninstall && it.packageName != packageNameRepository.get()
-                        true
-                    }.sortedByDescending {
-                        if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
-                    }
-                )
-            }
-
-            is AppUsageResult.Error -> {
-                if (result.exception is SecurityException) {
-                    mutableRequestingPermission.emit(true)
+        getAppUsages().onSuccess { appUsageList ->
+            mutableRequestingPermission.emit(false)
+            mutableShowingList.emit(
+                appUsageList.filter {
+                    it.enableUninstall && it.packageName != packageNameRepository.get()
+                    true
+                }.sortedByDescending {
+                    if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
                 }
+            )
+        }.onFailure { exception ->
+            if (exception is SecurityException) {
+                mutableRequestingPermission.emit(true)
             }
         }
     }
