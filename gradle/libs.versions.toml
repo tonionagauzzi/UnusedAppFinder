@@ -17,7 +17,7 @@ kotlin = "2.1.20"
 kotlinxCoroutines = "1.9.0"
 ksp = "2.1.20-1.0.31"
 ktlint-plugin = "11.6.1"
-robolectric = "4.13"
+robolectric = "4.14.1"
 screenshot = "0.0.1-alpha09"
 
 [libraries]
