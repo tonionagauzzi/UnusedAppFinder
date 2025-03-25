@@ -1,4 +1,4 @@
-package com.vitantonio.nagauzzi.unusedappfinder.composable
+package com.vitantonio.nagauzzi.unusedappfinder.view.composable
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertIsDisplayed

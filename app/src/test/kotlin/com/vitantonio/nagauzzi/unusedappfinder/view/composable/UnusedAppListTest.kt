@@ -1,4 +1,4 @@
-package com.vitantonio.nagauzzi.unusedappfinder.composable
+package com.vitantonio.nagauzzi.unusedappfinder.view.composable
 
 import android.content.Context
 import androidx.compose.ui.Modifier

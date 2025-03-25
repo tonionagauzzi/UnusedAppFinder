@@ -18,7 +18,7 @@ class UnusedAppListViewModel @Inject constructor(
     private val mutableShowingList = MutableStateFlow<List<AppUsage>>(emptyList())
     val showingList: StateFlow<List<AppUsage>> = mutableShowingList
 
-    private val mutableRequestingPermission = MutableStateFlow<Boolean>(false)
+    private val mutableRequestingPermission = MutableStateFlow(false)
     val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
 
     suspend fun reload() {

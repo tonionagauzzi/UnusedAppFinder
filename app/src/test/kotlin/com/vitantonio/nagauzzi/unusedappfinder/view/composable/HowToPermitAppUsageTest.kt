@@ -1,4 +1,4 @@
-package com.vitantonio.nagauzzi.unusedappfinder.composable
+package com.vitantonio.nagauzzi.unusedappfinder.view.composable
 
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties

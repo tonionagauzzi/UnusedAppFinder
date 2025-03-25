@@ -10,7 +10,6 @@ import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockAppUsageRepos
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockPackageNameRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ProhibitedAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertFalse
@@ -18,7 +17,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(AndroidJUnit4::class)
 class UnusedAppListViewModelTest {
     @Test
