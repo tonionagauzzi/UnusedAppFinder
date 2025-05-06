@@ -10,7 +10,6 @@ import androidx.compose.ui.test.onNodeWithText
 import com.vitantonio.nagauzzi.unusedappfinder.extension.asEpochMilli
 import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
-import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppStatelessList
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

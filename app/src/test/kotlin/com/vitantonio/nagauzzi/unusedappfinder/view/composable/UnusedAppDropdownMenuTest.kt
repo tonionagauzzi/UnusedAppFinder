@@ -5,7 +5,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.vitantonio.nagauzzi.unusedappfinder.R
-import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppDropdownMenu
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test

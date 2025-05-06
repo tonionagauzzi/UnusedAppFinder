@@ -10,32 +10,33 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class UnusedAppListViewModel @Inject constructor(
-    private val getAppUsages: GetAppUsages,
-    private val packageNameRepository: PackageNameRepository,
-) : ViewModel() {
+class UnusedAppListViewModel
+    @Inject
+    constructor(
+        private val getAppUsages: GetAppUsages,
+        private val packageNameRepository: PackageNameRepository,
+    ) : ViewModel() {
+        private val mutableShowingList = MutableStateFlow<List<AppUsage>>(emptyList())
+        val showingList: StateFlow<List<AppUsage>> = mutableShowingList
 
-    private val mutableShowingList = MutableStateFlow<List<AppUsage>>(emptyList())
-    val showingList: StateFlow<List<AppUsage>> = mutableShowingList
+        private val mutableRequestingPermission = MutableStateFlow(false)
+        val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
 
-    private val mutableRequestingPermission = MutableStateFlow(false)
-    val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
-
-    suspend fun reload() {
-        getAppUsages().onSuccess { appUsageList ->
-            mutableRequestingPermission.emit(false)
-            mutableShowingList.emit(
-                appUsageList.filter {
-                    it.enableUninstall && it.packageName != packageNameRepository.get()
-                    true
-                }.sortedByDescending {
-                    if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
+        suspend fun reload() {
+            getAppUsages().onSuccess { appUsageList ->
+                mutableRequestingPermission.emit(false)
+                mutableShowingList.emit(
+                    appUsageList.filter {
+                        it.enableUninstall && it.packageName != packageNameRepository.get()
+                        true
+                    }.sortedByDescending {
+                        if (it.lastUsedTime > 0) it.lastUsedTime else it.installedTime
+                    }
+                )
+            }.onFailure { exception ->
+                if (exception is SecurityException) {
+                    mutableRequestingPermission.emit(true)
                 }
-            )
-        }.onFailure { exception ->
-            if (exception is SecurityException) {
-                mutableRequestingPermission.emit(true)
             }
         }
     }
-}

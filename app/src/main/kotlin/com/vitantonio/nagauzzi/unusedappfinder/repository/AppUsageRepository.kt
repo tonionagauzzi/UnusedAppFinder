@@ -8,8 +8,10 @@ interface AppUsageRepository {
     fun get(): List<AppUsage>
 }
 
-class AppUsageRepositoryImpl @Inject constructor(
-    private val dataSource: AppUsageLocalDataSource,
-) : AppUsageRepository {
-    override fun get() = dataSource.get()
-}
+class AppUsageRepositoryImpl
+    @Inject
+    constructor(
+        private val dataSource: AppUsageLocalDataSource,
+    ) : AppUsageRepository {
+        override fun get() = dataSource.get()
+    }
