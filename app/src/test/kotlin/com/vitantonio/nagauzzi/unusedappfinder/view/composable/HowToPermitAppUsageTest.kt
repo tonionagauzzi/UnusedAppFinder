@@ -7,7 +7,6 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
-import com.vitantonio.nagauzzi.unusedappfinder.view.composable.HowToPermitAppUsage
 import junit.framework.TestCase.assertEquals
 import org.junit.Rule
 import org.junit.Test
