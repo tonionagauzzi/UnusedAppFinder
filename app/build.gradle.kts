@@ -56,8 +56,6 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewModel.compose)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.gms.play.services.oss.licenses)
     implementation(libs.hilt.android)
     implementation(libs.kotlin.stdlib)

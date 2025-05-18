@@ -2,14 +2,10 @@ package com.vitantonio.nagauzzi.unusedappfinder.extension
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import androidx.appcompat.content.res.AppCompatResources
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 
-private fun Context.dummyIcon(): Drawable = AppCompatResources.getDrawable(
-    this,
-    R.drawable.ic_launcher_foreground
-)!!
+private fun Context.dummyIcon(): Drawable = getDrawable(R.drawable.ic_launcher_foreground)!!
 
 // FIXME: Make this a static extension function of AppUsage when Kotlin 2.0 comes out.
 fun Context.dummyAppUsages(useDummyIcon: Boolean) = listOf(
