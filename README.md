@@ -1,4 +1,4 @@
-# UnusedAppFinder
+# UnusedAppFinder 
 The Android app to help that you find unused app in your android device.
 
 - 100% Kotlin
