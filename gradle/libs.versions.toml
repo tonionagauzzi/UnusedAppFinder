@@ -16,7 +16,7 @@ kotlinxCoroutines = "1.10.2"
 ksp = "2.1.21-2.0.1"
 ktlint-plugin = "12.3.0"
 robolectric = "4.14.1"
-screenshot = "0.0.1-alpha09"
+screenshot = "0.0.1-alpha11"
 
 [libraries]
 accompanist-drawablepainter = { group = "com.google.accompanist", name = "accompanist-drawablepainter", version.ref = "accompanist" }
