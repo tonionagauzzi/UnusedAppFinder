@@ -15,7 +15,7 @@ jobs:
 
       - name: Calculate New Version Code
         id: calc_version
-        run: echo "NEW_VERSION_CODE=${{vars.VERSION_CODE}} + 1" >> $GITHUB_OUTPUT
+        run: echo "NEW_VERSION_CODE=$((${{vars.VERSION_CODE}} + 1))" >> $GITHUB_OUTPUT
 
       - name: Update Variables
         run: |
