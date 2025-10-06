@@ -29,4 +29,4 @@ jobs:
 
       - name: Merged Pull Request Number and URL
         run: |
-          echo "${{ github.event.pull_request.title }} #${{ github.event.pull_request.id }}"
+          echo "${{ github.event.pull_request.title }}"
