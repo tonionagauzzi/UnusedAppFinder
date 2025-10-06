@@ -29,5 +29,4 @@ jobs:
 
       - name: Merged Pull Request Number and URL
         run: |
-          echo "${{ github.event.pull_request.title }}"
-          echo "${{ github.event.pull_request.html_url }}"
+          echo "${{ github.event.pull_request.title }} #${{ github.event.pull_request.id }}"
