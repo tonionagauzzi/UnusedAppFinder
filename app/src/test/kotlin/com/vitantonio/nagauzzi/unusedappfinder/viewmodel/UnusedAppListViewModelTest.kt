@@ -10,6 +10,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockAppUsageRepos
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockPackageNameRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ProhibitedAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
+import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetFilteredAndSortedAppUsages
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertFalse
@@ -23,8 +24,10 @@ class UnusedAppListViewModelTest {
     fun test_sort_showing_list() = runTest {
         // Initialize
         val viewModel = UnusedAppListViewModel(
-            GetAppUsages(MockAppUsageRepository()),
-            MockPackageNameRepository()
+            GetFilteredAndSortedAppUsages(
+                GetAppUsages(MockAppUsageRepository()),
+                MockPackageNameRepository()
+            )
         )
         val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -43,8 +46,10 @@ class UnusedAppListViewModelTest {
     fun test_request_permissions() = runTest {
         // Initialize
         val viewModel = UnusedAppListViewModel(
-            GetAppUsages(ProhibitedAppUsageRepository()),
-            MockPackageNameRepository()
+            GetFilteredAndSortedAppUsages(
+                GetAppUsages(ProhibitedAppUsageRepository()),
+                MockPackageNameRepository()
+            )
         )
 
         // Input
@@ -59,8 +64,10 @@ class UnusedAppListViewModelTest {
     fun test_other_errors() = runTest {
         // Initialize
         val viewModel = UnusedAppListViewModel(
-            GetAppUsages(ErrorAppUsageRepository()),
-            MockPackageNameRepository()
+            GetFilteredAndSortedAppUsages(
+                GetAppUsages(ErrorAppUsageRepository()),
+                MockPackageNameRepository()
+            )
         )
 
         // Input
