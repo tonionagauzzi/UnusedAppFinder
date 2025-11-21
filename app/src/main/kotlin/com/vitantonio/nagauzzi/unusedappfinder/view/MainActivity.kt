@@ -10,15 +10,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.lifecycleScope
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppRoot
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppTopBar
 import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -40,16 +39,13 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) { contentPadding ->
-                    val coroutineScope = rememberCoroutineScope()
                     val pullToRefreshState = rememberPullToRefreshState()
+                    val isLoading by unusedAppListViewModel.isLoading.collectAsState()
                     PullToRefreshBox(
                         modifier = modifier.padding(contentPadding),
-                        isRefreshing = pullToRefreshState.isAnimating,
+                        isRefreshing = isLoading,
                         onRefresh = {
-                            coroutineScope.launch {
-                                unusedAppListViewModel.reload()
-                                pullToRefreshState.animateToHidden()
-                            }
+                            unusedAppListViewModel.reload()
                         }
                     ) {
                         UnusedAppRoot(modifier = modifier.fillMaxSize())
@@ -61,8 +57,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        lifecycleScope.launch {
-            unusedAppListViewModel.reload()
-        }
+        unusedAppListViewModel.reload()
     }
 }
