@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,8 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
-import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
-import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
+import com.vitantonio.nagauzzi.unusedappfinder.R
+import com.vitantonio.nagauzzi.unusedappfinder.view.model.AppUsageUiModel
+import com.vitantonio.nagauzzi.unusedappfinder.view.model.toUiModel
 import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 
@@ -35,9 +37,14 @@ fun UnusedAppList(
     val context = LocalContext.current
     val showingList by unusedAppListViewModel.showingList.collectAsState(emptyList())
 
+    // showingListが変更されたときのみ変換を実行
+    val appUsageUiModelList = remember(showingList) {
+        showingList.map { it.toUiModel(context) }
+    }
+
     UnusedAppStatelessList(
         modifier = modifier,
-        appUsageList = showingList,
+        appUsageList = appUsageUiModelList,
         onColumnClicked = { packageName ->
             context.startActivity(
                 Intent().apply {
@@ -52,7 +59,7 @@ fun UnusedAppList(
 @Composable
 fun UnusedAppStatelessList(
     modifier: Modifier = Modifier,
-    appUsageList: List<AppUsage>,
+    appUsageList: List<AppUsageUiModel>,
     onColumnClicked: (packageName: String) -> Unit,
 ) {
     LazyVerticalGrid(
@@ -93,7 +100,7 @@ fun PreviewUnusedAppList() {
     val context = LocalContext.current
     UnusedAppListTheme {
         UnusedAppStatelessList(
-            appUsageList = context.dummyAppUsages(useDummyIcon = true),
+            appUsageList = AppUsageUiModel.dummyList(context.getDrawable(R.drawable.ic_launcher_foreground)),
             onColumnClicked = {}
         )
     }

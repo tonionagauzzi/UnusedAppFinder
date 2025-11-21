@@ -1,6 +1,5 @@
 package com.vitantonio.nagauzzi.unusedappfinder.view.composable
 
-import android.content.Context
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
@@ -8,13 +7,12 @@ import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import com.vitantonio.nagauzzi.unusedappfinder.extension.asEpochMilli
-import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.extension.getString
+import com.vitantonio.nagauzzi.unusedappfinder.view.model.AppUsageUiModel
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricTestRunner::class)
 class UnusedAppListTest {
@@ -23,11 +21,8 @@ class UnusedAppListTest {
 
     @Test
     fun test_UnusedAppStatelessList() {
-        // Initialize
-        val context: Context = RuntimeEnvironment.getApplication()
-
         // Input
-        val appUsageList = context.dummyAppUsages(useDummyIcon = false)
+        val appUsageList = AppUsageUiModel.dummyList()
         composeTestRule.setContent {
             UnusedAppStatelessList(
                 modifier = Modifier,

@@ -1,16 +1,10 @@
 package com.vitantonio.nagauzzi.unusedappfinder.repository.mock
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
-import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.repository.AppUsageRepository
 
 class MockAppUsageRepository : AppUsageRepository {
-    override fun get(): List<AppUsage> {
-        val context: Context = ApplicationProvider.getApplicationContext()
-        return context.dummyAppUsages(useDummyIcon = false)
-    }
+    override fun get(): List<AppUsage> = AppUsage.dummyList()
 }
 
 class ProhibitedAppUsageRepository : AppUsageRepository {

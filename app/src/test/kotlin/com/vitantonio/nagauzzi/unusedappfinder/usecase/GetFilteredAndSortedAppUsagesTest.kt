@@ -1,14 +1,12 @@
 package com.vitantonio.nagauzzi.unusedappfinder.usecase
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyAppUsages
-import com.vitantonio.nagauzzi.unusedappfinder.model.equalsWithoutIcon
+import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ErrorAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockPackageNameRepository
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -23,7 +21,6 @@ class GetFilteredAndSortedAppUsagesTest {
             MockAppUsageRepository(),
             MockPackageNameRepository()
         )
-        val context: Context = ApplicationProvider.getApplicationContext()
 
         // Input
         val result = getFilteredAndSortedAppUsages()
@@ -34,11 +31,11 @@ class GetFilteredAndSortedAppUsagesTest {
         assertNotNull(appUsageList)
 
         // フィルタリングとソートが適用された期待値を作成
-        val expectedAppUsageList = context.dummyAppUsages(useDummyIcon = false)
+        val expectedAppUsageList = AppUsage.dummyList()
             .sortedByDescending { appUsage ->
                 if (appUsage.lastUsedTime > 0) appUsage.lastUsedTime else appUsage.installedTime
             }
-        assertTrue(appUsageList!!.equalsWithoutIcon(expectedAppUsageList))
+        assertEquals(expectedAppUsageList, appUsageList)
     }
 
     @Test

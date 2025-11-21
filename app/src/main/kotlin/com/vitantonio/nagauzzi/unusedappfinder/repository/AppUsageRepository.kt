@@ -81,7 +81,6 @@ class AppUsageRepositoryImpl
                     name = resolveInfo.loadLabel(packageManager).toString(),
                     packageName = resolveInfo.activityInfo.packageName,
                     activityName = resolveInfo.activityInfo.name,
-                    icon = resolveInfo.loadIcon(packageManager),
                     installedTime = packageManager.getPackageInfo(
                         resolveInfo.activityInfo.packageName,
                         0
