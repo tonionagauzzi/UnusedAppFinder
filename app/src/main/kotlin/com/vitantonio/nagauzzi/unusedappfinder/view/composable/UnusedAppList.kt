@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -36,9 +37,14 @@ fun UnusedAppList(
     val context = LocalContext.current
     val showingList by unusedAppListViewModel.showingList.collectAsState(emptyList())
 
+    // showingListが変更されたときのみ変換を実行
+    val appUsageUiModelList = remember(showingList) {
+        showingList.map { it.toUiModel(context) }
+    }
+
     UnusedAppStatelessList(
         modifier = modifier,
-        appUsageList = showingList.map { it.toUiModel(context) },
+        appUsageList = appUsageUiModelList,
         onColumnClicked = { packageName ->
             context.startActivity(
                 Intent().apply {
