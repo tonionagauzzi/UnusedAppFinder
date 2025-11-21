@@ -52,8 +52,7 @@ This project follows Clean Architecture principles with MVVM pattern:
   - Domain models in `model/` package
 
 - **Data Layer**
-  - `repository/`: Repository interfaces and implementations
-  - `datasource/`: Data sources (AppUsageLocalDataSource using UsageStatsManager)
+  - `repository/`: Repository interfaces and implementations (using UsageStatsManager)
 
 #### Technology Stack
 - **Dependency Injection**: Dagger Hilt with @HiltViewModel and @Inject
