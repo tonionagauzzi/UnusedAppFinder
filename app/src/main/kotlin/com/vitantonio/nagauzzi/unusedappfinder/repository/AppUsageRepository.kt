@@ -76,7 +76,6 @@ class AppUsageRepositoryImpl
             usageStats: List<PackageUsageStats>,
         ): List<AppUsage> {
             val packageManager = context.packageManager
-            val usageStatsMap = usageStats.associateBy { it.packageName }
             return installedApps.map { resolveInfo ->
                 AppUsage(
                     name = resolveInfo.loadLabel(packageManager).toString(),
@@ -87,7 +86,7 @@ class AppUsageRepositoryImpl
                         resolveInfo.activityInfo.packageName,
                         0
                     ).firstInstallTime,
-                    lastUsedTime = usageStatsMap[resolveInfo.activityInfo.packageName]?.lastUsedTime ?: 0,
+                    lastUsedTime = usageStats.find { it.packageName == resolveInfo.activityInfo.packageName }?.lastUsedTime ?: 0,
                     enableUninstall = resolveInfo.activityInfo.applicationInfo.isUserApp()
                 )
             }
