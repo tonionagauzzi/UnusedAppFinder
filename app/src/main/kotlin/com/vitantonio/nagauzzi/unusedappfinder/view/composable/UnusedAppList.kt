@@ -100,7 +100,7 @@ fun PreviewUnusedAppList() {
     val context = LocalContext.current
     UnusedAppListTheme {
         UnusedAppStatelessList(
-            appUsageList = AppUsageUiModel.dummyList(context.getDrawable(R.drawable.ic_launcher_foreground)!!),
+            appUsageList = AppUsageUiModel.dummyList(context.getDrawable(R.drawable.ic_launcher_foreground)),
             onColumnClicked = {}
         )
     }
