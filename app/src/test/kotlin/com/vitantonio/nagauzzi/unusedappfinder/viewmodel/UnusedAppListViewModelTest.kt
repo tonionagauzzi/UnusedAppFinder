@@ -1,7 +1,5 @@
 package com.vitantonio.nagauzzi.unusedappfinder.viewmodel
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ErrorAppUsageRepository
@@ -22,9 +20,7 @@ class UnusedAppListViewModelTest {
     @Test
     fun test_sort_showing_list() = runTest {
         // Initialize
-        val context: Context = ApplicationProvider.getApplicationContext()
         val viewModel = UnusedAppListViewModel(
-            context,
             GetFilteredAndSortedAppUsages(
                 MockAppUsageRepository(),
                 MockPackageNameRepository()
@@ -53,9 +49,7 @@ class UnusedAppListViewModelTest {
     @Test
     fun test_request_permissions() = runTest {
         // Initialize
-        val context: Context = ApplicationProvider.getApplicationContext()
         val viewModel = UnusedAppListViewModel(
-            context,
             GetFilteredAndSortedAppUsages(
                 ProhibitedAppUsageRepository(),
                 MockPackageNameRepository()
@@ -73,9 +67,7 @@ class UnusedAppListViewModelTest {
     @Test
     fun test_other_errors() = runTest {
         // Initialize
-        val context: Context = ApplicationProvider.getApplicationContext()
         val viewModel = UnusedAppListViewModel(
-            context,
             GetFilteredAndSortedAppUsages(
                 ErrorAppUsageRepository(),
                 MockPackageNameRepository()

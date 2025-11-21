@@ -24,6 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.view.model.AppUsageUiModel
+import com.vitantonio.nagauzzi.unusedappfinder.view.model.toUiModel
 import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 
@@ -37,7 +38,7 @@ fun UnusedAppList(
 
     UnusedAppStatelessList(
         modifier = modifier,
-        appUsageList = showingList,
+        appUsageList = showingList.map { it.toUiModel(context) },
         onColumnClicked = { packageName ->
             context.startActivity(
                 Intent().apply {
