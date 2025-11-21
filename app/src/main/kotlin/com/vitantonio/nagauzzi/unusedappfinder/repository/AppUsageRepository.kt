@@ -23,7 +23,7 @@ interface AppUsageRepository {
 class AppUsageRepositoryImpl
     @Inject
     constructor(
-        @ApplicationContext private val context: Context,
+        @param:ApplicationContext private val context: Context,
     ) : AppUsageRepository {
         override fun get(): List<AppUsage> {
             val usageStats = getUsageStats()
