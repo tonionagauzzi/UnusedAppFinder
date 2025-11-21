@@ -4,6 +4,7 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.ResolveInfo
 import com.vitantonio.nagauzzi.unusedappfinder.extension.minusMonths
 import com.vitantonio.nagauzzi.unusedappfinder.extension.resetDateToStartDayOfMonth
 import com.vitantonio.nagauzzi.unusedappfinder.extension.resetTimeToEndOfDay
@@ -12,6 +13,8 @@ import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import javax.inject.Inject
+
+private const val VALID_TIMESTAMP_THRESHOLD = 946652400000L // 2000/01/01 00:00:00
 
 interface AppUsageRepository {
     fun get(): List<AppUsage>
@@ -23,7 +26,17 @@ class AppUsageRepositoryImpl
         @ApplicationContext private val context: Context,
     ) : AppUsageRepository {
         override fun get(): List<AppUsage> {
-            // Get usage stats list
+            val usageStats = getUsageStats()
+            val installedApps = getInstalledApps()
+            return createAppUsageList(installedApps, usageStats)
+        }
+
+        private data class PackageUsageStats(
+            val packageName: String,
+            val lastUsedTime: Long,
+        )
+
+        private fun getUsageStats(): List<PackageUsageStats> {
             val usageStatsManager =
                 context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
             val today = Instant.now()
@@ -36,21 +49,35 @@ class AppUsageRepositoryImpl
                 from.toEpochMilli(),
                 to.toEpochMilli()
             )
-            if (queryUsageStats.size == 0) {
-                // Something is wrong
+            if (queryUsageStats.isEmpty()) {
                 throw SecurityException("UsageStatsManager.queryUsageStats() returned empty list.")
             }
-            // FIXME It seems not to be able to get usage stats before recent shutdown...
-            // val oldestStats = queryUsageStats.filter { it.lastTimeUsed > 1000000000000 }.minBy { it.lastTimeUsed }
 
-            // Get installed app list
+            return queryUsageStats
+                .filter { it.lastTimeUsed >= VALID_TIMESTAMP_THRESHOLD }
+                .groupBy { it.packageName }
+                .map { (packageName, stats) ->
+                    PackageUsageStats(
+                        packageName = packageName,
+                        lastUsedTime = stats.maxOf { it.lastTimeUsed }
+                    )
+                }
+        }
+
+        private fun getInstalledApps(): List<ResolveInfo> {
             val packageManager = context.packageManager
             val mainIntent = Intent(Intent.ACTION_MAIN, null)
             mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
-            val resolveInfoList = packageManager.queryIntentActivities(mainIntent, 0)
+            return packageManager.queryIntentActivities(mainIntent, 0)
+        }
 
-            // Generate AppUsage list (by usage stats list and installed app list)
-            return resolveInfoList.map { resolveInfo ->
+        private fun createAppUsageList(
+            installedApps: List<ResolveInfo>,
+            usageStats: List<PackageUsageStats>,
+        ): List<AppUsage> {
+            val packageManager = context.packageManager
+            val usageStatsMap = usageStats.associateBy { it.packageName }
+            return installedApps.map { resolveInfo ->
                 AppUsage(
                     name = resolveInfo.loadLabel(packageManager).toString(),
                     packageName = resolveInfo.activityInfo.packageName,
@@ -60,12 +87,7 @@ class AppUsageRepositoryImpl
                         resolveInfo.activityInfo.packageName,
                         0
                     ).firstInstallTime,
-                    lastUsedTime = queryUsageStats.filter {
-                        it.packageName == resolveInfo.activityInfo.packageName &&
-                            it.lastTimeUsed >= 946652400000 // 2000/01/01 00:00:00以降なら正しいデータとみなす
-                    }.maxByOrNull {
-                        it.lastTimeUsed
-                    }?.lastTimeUsed ?: 0,
+                    lastUsedTime = usageStatsMap[resolveInfo.activityInfo.packageName]?.lastUsedTime ?: 0,
                     enableUninstall = resolveInfo.activityInfo.applicationInfo.isUserApp()
                 )
             }
