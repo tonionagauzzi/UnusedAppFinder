@@ -1,7 +1,6 @@
 package com.vitantonio.nagauzzi.unusedappfinder.view.model
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import com.vitantonio.nagauzzi.unusedappfinder.model.AppUsage
 
@@ -32,11 +31,9 @@ data class AppUsageUiModel(
 
 fun AppUsage.toUiModel(context: Context): AppUsageUiModel {
     val packageManager = context.packageManager
-    val icon = try {
+    val icon = runCatching {
         packageManager.getApplicationIcon(packageName)
-    } catch (e: PackageManager.NameNotFoundException) {
-        null
-    }
+    }.getOrNull()
     return AppUsageUiModel(
         name = name,
         packageName = packageName,
