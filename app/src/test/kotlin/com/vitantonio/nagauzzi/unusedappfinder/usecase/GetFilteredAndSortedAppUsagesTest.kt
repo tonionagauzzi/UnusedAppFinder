@@ -19,7 +19,7 @@ class GetFilteredAndSortedAppUsagesTest {
     fun test_success_with_filter_and_sort() = runTest {
         // Initialize
         val getFilteredAndSortedAppUsages = GetFilteredAndSortedAppUsages(
-            GetAppUsages(MockAppUsageRepository()),
+            MockAppUsageRepository(),
             MockPackageNameRepository()
         )
         val context: Context = ApplicationProvider.getApplicationContext()
@@ -43,7 +43,7 @@ class GetFilteredAndSortedAppUsagesTest {
     fun test_error() = runTest {
         // Initialize
         val getFilteredAndSortedAppUsages = GetFilteredAndSortedAppUsages(
-            GetAppUsages(ErrorAppUsageRepository()),
+            ErrorAppUsageRepository(),
             MockPackageNameRepository()
         )
 

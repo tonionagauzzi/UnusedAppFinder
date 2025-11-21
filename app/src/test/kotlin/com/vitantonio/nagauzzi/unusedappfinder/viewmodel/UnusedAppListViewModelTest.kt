@@ -9,7 +9,6 @@ import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ErrorAppUsageRepo
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockPackageNameRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ProhibitedAppUsageRepository
-import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetAppUsages
 import com.vitantonio.nagauzzi.unusedappfinder.usecase.GetFilteredAndSortedAppUsages
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -25,7 +24,7 @@ class UnusedAppListViewModelTest {
         // Initialize
         val viewModel = UnusedAppListViewModel(
             GetFilteredAndSortedAppUsages(
-                GetAppUsages(MockAppUsageRepository()),
+                MockAppUsageRepository(),
                 MockPackageNameRepository()
             )
         )
@@ -47,7 +46,7 @@ class UnusedAppListViewModelTest {
         // Initialize
         val viewModel = UnusedAppListViewModel(
             GetFilteredAndSortedAppUsages(
-                GetAppUsages(ProhibitedAppUsageRepository()),
+                ProhibitedAppUsageRepository(),
                 MockPackageNameRepository()
             )
         )
@@ -65,7 +64,7 @@ class UnusedAppListViewModelTest {
         // Initialize
         val viewModel = UnusedAppListViewModel(
             GetFilteredAndSortedAppUsages(
-                GetAppUsages(ErrorAppUsageRepository()),
+                ErrorAppUsageRepository(),
                 MockPackageNameRepository()
             )
         )
