@@ -9,6 +9,7 @@ import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.ErrorAppUsageRepo
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockAppUsageRepository
 import com.vitantonio.nagauzzi.unusedappfinder.repository.mock.MockPackageNameRepository
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,14 +30,15 @@ class GetFilteredAndSortedAppUsagesTest {
 
         // Check output
         assertTrue(result.isSuccess)
-        result.getOrNull()?.let { appUsageList ->
-            // フィルタリングとソートが適用された期待値を作成
-            val expectedAppUsageList = context.dummyAppUsages(useDummyIcon = false)
-                .sortedByDescending { appUsage ->
-                    if (appUsage.lastUsedTime > 0) appUsage.lastUsedTime else appUsage.installedTime
-                }
-            assertTrue(appUsageList.equalsWithoutIcon(expectedAppUsageList))
-        }
+        val appUsageList = result.getOrNull()
+        assertNotNull(appUsageList)
+
+        // フィルタリングとソートが適用された期待値を作成
+        val expectedAppUsageList = context.dummyAppUsages(useDummyIcon = false)
+            .sortedByDescending { appUsage ->
+                if (appUsage.lastUsedTime > 0) appUsage.lastUsedTime else appUsage.installedTime
+            }
+        assertTrue(appUsageList!!.equalsWithoutIcon(expectedAppUsageList))
     }
 
     @Test
