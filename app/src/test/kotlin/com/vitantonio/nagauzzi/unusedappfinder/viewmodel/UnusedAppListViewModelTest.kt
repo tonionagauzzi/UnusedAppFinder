@@ -35,15 +35,7 @@ class UnusedAppListViewModelTest {
             it.lastUsedTime
         }
         val showingList = viewModel.showingList.first()
-        assertEquals(expectedAppUsageList.size, showingList.size)
-        expectedAppUsageList.zip(showingList).forEach { (expected, actual) ->
-            assertEquals(expected.name, actual.name)
-            assertEquals(expected.packageName, actual.packageName)
-            assertEquals(expected.activityName, actual.activityName)
-            assertEquals(expected.installedTime, actual.installedTime)
-            assertEquals(expected.lastUsedTime, actual.lastUsedTime)
-            assertEquals(expected.enableUninstall, actual.enableUninstall)
-        }
+        assertEquals(expectedAppUsageList, showingList)
     }
 
     @Test
