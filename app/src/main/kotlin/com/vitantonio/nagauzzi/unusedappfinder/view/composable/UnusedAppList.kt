@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
-import com.vitantonio.nagauzzi.unusedappfinder.extension.dummyIcon
+import com.vitantonio.nagauzzi.unusedappfinder.R
 import com.vitantonio.nagauzzi.unusedappfinder.view.model.AppUsageUiModel
 import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
@@ -93,7 +93,7 @@ fun PreviewUnusedAppList() {
     val context = LocalContext.current
     UnusedAppListTheme {
         UnusedAppStatelessList(
-            appUsageList = AppUsageUiModel.dummyList(context.dummyIcon()),
+            appUsageList = AppUsageUiModel.dummyList(context.getDrawable(R.drawable.ic_launcher_foreground)!!),
             onColumnClicked = {}
         )
     }
