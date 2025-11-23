@@ -23,6 +23,7 @@ class UnusedAppListViewModel
         private val mutableRequestingPermission = MutableStateFlow(false)
         val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
 
+        @Volatile
         private var reloadJob: Job? = null
 
         fun reload(onComplete: () -> Unit = {}) {
