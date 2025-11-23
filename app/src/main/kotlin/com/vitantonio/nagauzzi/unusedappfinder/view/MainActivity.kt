@@ -10,15 +10,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppRoot
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppTopBar
 import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -41,19 +44,17 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { contentPadding ->
                     val pullToRefreshState = rememberPullToRefreshState()
-                    val isLoading by unusedAppListViewModel.isLoading.collectAsState()
-
-                    LaunchedEffect(isLoading) {
-                        if (!isLoading) {
-                            pullToRefreshState.animateToHidden()
-                        }
-                    }
+                    val coroutineScope = rememberCoroutineScope()
 
                     PullToRefreshBox(
                         modifier = modifier.padding(contentPadding),
-                        isRefreshing = isLoading,
+                        isRefreshing = pullToRefreshState.isAnimating,
                         onRefresh = {
-                            unusedAppListViewModel.reload()
+                            unusedAppListViewModel.reload {
+                                coroutineScope.launch {
+                                    pullToRefreshState.animateToHidden()
+                                }
+                            }
                         }
                     ) {
                         UnusedAppRoot(modifier = modifier.fillMaxSize())
