@@ -44,7 +44,7 @@ fun UnusedAppTopBar(
             }
         },
         title = {
-            Text(stringResource(id = R.string.app_name))
+            Text(stringResource(id = R.string.app_name_short))
         }
     )
 }
