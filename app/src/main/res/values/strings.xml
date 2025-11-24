@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">UnusedAppFinder</string>
-    <string name="app_name_short">UnusedAppFinder</string>
+    <string name="app_name">Remove Unused Apps</string>
+    <string name="app_name_short">Unused Apps</string>
     <string name="description_image">image</string>
     <string name="description_how_to_permit_app_usage">Please open the setting, choose %1$s and permit usage access.</string>
     <string name="button_permit_app_usage">Open the setting</string>

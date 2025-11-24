@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">使わなくなったアプリを削除しよう</string>
-    <string name="app_name_short">アプリ削除</string>
+    <string name="app_name">未使用アプリを削除</string>
+    <string name="app_name_short">未使用アプリ</string>
     <string name="description_image">画像</string>
     <string name="description_how_to_permit_app_usage">設定を開き、%1$sを選択し、使用状況へのアクセスを許可してください。</string>
     <string name="button_permit_app_usage">設定を開く</string>
