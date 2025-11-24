@@ -17,8 +17,8 @@ class UnusedAppListViewModel
     constructor(
         private val getFilteredAndSortedAppUsages: GetFilteredAndSortedAppUsages,
     ) : ViewModel() {
-        private val mutableShowingList = MutableStateFlow<List<AppUsage>>(emptyList())
-        val showingList: StateFlow<List<AppUsage>> = mutableShowingList
+        private val mutableAppUsageList = MutableStateFlow<List<AppUsage>>(emptyList())
+        val appUsageList: StateFlow<List<AppUsage>> = mutableAppUsageList
 
         private val mutableRequestingPermission = MutableStateFlow(false)
         val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
@@ -36,7 +36,7 @@ class UnusedAppListViewModel
                     mutableIsReloading.emit(true)
                     getFilteredAndSortedAppUsages().onSuccess { appUsageList ->
                         mutableRequestingPermission.emit(false)
-                        mutableShowingList.emit(appUsageList)
+                        mutableAppUsageList.emit(appUsageList)
                     }.onFailure { exception ->
                         if (exception is SecurityException) {
                             mutableRequestingPermission.emit(true)

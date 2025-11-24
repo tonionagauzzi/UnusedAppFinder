@@ -35,11 +35,11 @@ fun UnusedAppList(
     unusedAppListViewModel: UnusedAppListViewModel = viewModel(),
 ) {
     val context = LocalContext.current
-    val showingList by unusedAppListViewModel.showingList.collectAsState(emptyList())
+    val appUsageList by unusedAppListViewModel.appUsageList.collectAsState(emptyList())
 
-    // showingListが変更されたときのみ変換を実行
-    val appUsageUiModelList = remember(showingList) {
-        showingList.map { it.toUiModel(context) }
+    // appUsageListが変更されたときのみ変換を実行
+    val appUsageUiModelList = remember(appUsageList) {
+        appUsageList.map { it.toUiModel(context) }
     }
 
     UnusedAppStatelessList(

@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class UnusedAppListViewModelTest {
     @Test
-    fun test_sort_showing_list() = runTest {
+    fun test_sort_app_usage_list() = runTest {
         // Initialize
         val viewModel = UnusedAppListViewModel(
             GetFilteredAndSortedAppUsages(
@@ -34,8 +34,8 @@ class UnusedAppListViewModelTest {
         val expectedAppUsageList = AppUsage.dummyList().sortedByDescending {
             it.lastUsedTime
         }
-        val showingList = viewModel.showingList.first()
-        assertEquals(expectedAppUsageList, showingList)
+        val appUsageList = viewModel.appUsageList.first()
+        assertEquals(expectedAppUsageList, appUsageList)
     }
 
     @Test
