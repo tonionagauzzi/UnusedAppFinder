@@ -73,4 +73,25 @@ class UnusedAppListViewModelTest {
         val isRequestedPermissions = viewModel.requestingPermission.first()
         assertFalse(isRequestedPermissions)
     }
+
+    @Test
+    fun test_isReloading_initial_and_final_state() = runTest {
+        // Initialize
+        val viewModel = UnusedAppListViewModel(
+            GetFilteredAndSortedAppUsages(
+                MockAppUsageRepository(),
+                MockPackageNameRepository()
+            )
+        )
+
+        // Check initial state: 初期状態はfalseであることを確認
+        assertFalse(viewModel.isReloading.value)
+
+        // Input: reload()を実行して完了を待つ
+        viewModel.reload()
+        viewModel.appUsageList.first() // reload()の完了を待つ
+
+        // Check completed state: 完了後はfalseに戻ることを確認
+        assertFalse(viewModel.isReloading.value)
+    }
 }
