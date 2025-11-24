@@ -37,9 +37,8 @@ class UnusedAppListViewModel
                         if (exception is SecurityException) {
                             mutableRequestingPermission.emit(true)
                         }
-                    }.also {
-                        onComplete()
                     }
+                    onComplete()
                 }
         }
     }
