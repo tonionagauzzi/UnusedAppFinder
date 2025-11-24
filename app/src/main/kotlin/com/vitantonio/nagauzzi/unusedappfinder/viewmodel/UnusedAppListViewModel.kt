@@ -23,13 +23,17 @@ class UnusedAppListViewModel
         private val mutableRequestingPermission = MutableStateFlow(false)
         val requestingPermission: StateFlow<Boolean> = mutableRequestingPermission
 
+        private val mutableIsReloading = MutableStateFlow(false)
+        val isReloading: StateFlow<Boolean> = mutableIsReloading
+
         @Volatile
         private var reloadJob: Job? = null
 
-        fun reload(onComplete: () -> Unit = {}) {
+        fun reload() {
             reloadJob?.cancel()
             reloadJob =
                 viewModelScope.launch {
+                    mutableIsReloading.emit(true)
                     getFilteredAndSortedAppUsages().onSuccess { appUsageList ->
                         mutableRequestingPermission.emit(false)
                         mutableShowingList.emit(appUsageList)
@@ -38,7 +42,7 @@ class UnusedAppListViewModel
                             mutableRequestingPermission.emit(true)
                         }
                     }
-                    onComplete()
+                    mutableIsReloading.emit(false)
                 }
         }
     }

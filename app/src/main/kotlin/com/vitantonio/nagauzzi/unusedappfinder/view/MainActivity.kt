@@ -10,14 +10,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppRoot
 import com.vitantonio.nagauzzi.unusedappfinder.view.composable.UnusedAppTopBar
 import com.vitantonio.nagauzzi.unusedappfinder.view.theme.UnusedAppListTheme
 import com.vitantonio.nagauzzi.unusedappfinder.viewmodel.UnusedAppListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -40,17 +41,19 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { contentPadding ->
                     val pullToRefreshState = rememberPullToRefreshState()
-                    val coroutineScope = rememberCoroutineScope()
+                    val isReloading by unusedAppListViewModel.isReloading.collectAsStateWithLifecycle()
+
+                    LaunchedEffect(isReloading) {
+                        if (!isReloading && pullToRefreshState.isAnimating) {
+                            pullToRefreshState.animateToHidden()
+                        }
+                    }
 
                     PullToRefreshBox(
                         modifier = modifier.padding(contentPadding),
-                        isRefreshing = pullToRefreshState.isAnimating,
+                        isRefreshing = isReloading,
                         onRefresh = {
-                            unusedAppListViewModel.reload {
-                                coroutineScope.launch {
-                                    pullToRefreshState.animateToHidden()
-                                }
-                            }
+                            unusedAppListViewModel.reload()
                         }
                     ) {
                         UnusedAppRoot(modifier = modifier.fillMaxSize())
