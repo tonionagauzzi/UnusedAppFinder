@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.application")
     id("com.google.android.gms.oss-licenses-plugin")
@@ -38,13 +40,16 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     experimentalProperties["android.experimental.enableScreenshotTest"] = true
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
     }
 }
 
@@ -72,4 +77,10 @@ dependencies {
 }
 android {
     namespace = "com.vitantonio.nagauzzi.unusedappfinder"
+}
+
+tasks.withType<Test> {
+    if (name.contains("ScreenshotTest")) {
+        failOnNoDiscoveredTests = false
+    }
 }
