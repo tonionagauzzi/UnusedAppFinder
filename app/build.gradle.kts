@@ -78,3 +78,9 @@ dependencies {
 android {
     namespace = "com.vitantonio.nagauzzi.unusedappfinder"
 }
+
+tasks.withType<Test> {
+    if (name.contains("ScreenshotTest")) {
+        failOnNoDiscoveredTests = false
+    }
+}
