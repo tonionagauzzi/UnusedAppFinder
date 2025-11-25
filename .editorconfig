@@ -20,3 +20,7 @@ ktlint_standard_function-signature = disabled
 # ktlint 12.2.0 からktlint系コマンドでエラーが出るようになったので、以下を無効化して対処
 ktlint_standard_discouraged-comment-location = disabled
 ktlint_standard_if-else-wrapping = disabled
+
+# ktlint 14.0.0 からktlint系コマンドでエラーが出るようになったので、以下を無効化して対処
+ktlint_standard_function-expression-body = disabled
+ktlint_standard_chain-method-continuation = disabled
