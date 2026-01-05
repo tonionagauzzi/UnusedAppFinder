@@ -46,5 +46,5 @@ jobs:
         run: |
           curl -X POST -H 'Content-type: application/json' \
           --data "{
-            \"text\": \"❌ *GitHub Action の Check and test が失敗しました!* \\n*Repository:* ${{ github.repository }} \\n*Workflow:* ${{ github.workflow }} \\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Details>\"
+            \"text\": \"❌ *GitHub Action の Check and test が失敗しました!* \\n*Repository:* ${{ github.repository }} \\n*Workflow:* ${{ github.workflow }} \\n*URL:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"
           }" $SLACK_WEBHOOK_URL
