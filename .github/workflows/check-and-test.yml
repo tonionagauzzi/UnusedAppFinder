@@ -37,3 +37,14 @@ jobs:
             ./**/build/reports/screenshotTest
             ./**/build/reports/tests
           retention-days: 30
+
+      - name: Notify Slack on Failure
+        if: failure()
+        continue-on-error: true
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data "{
+            \"text\": \"❌ *GitHub Action の Check and test が失敗しました!* \\n*Repository:* ${{ github.repository }} \\n*Workflow:* ${{ github.workflow }} \\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Details>\"
+          }" $SLACK_WEBHOOK_URL
