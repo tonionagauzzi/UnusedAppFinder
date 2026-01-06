@@ -1,6 +1,10 @@
 name: Merge
 
 on:
+  # 手動トリガー
+  workflow_dispatch:
+
+  # PR がクローズされたときにトリガー
   pull_request:
     types: [closed]
     branches:
